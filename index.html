@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAPSULENT — Living gifts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&text=CAPSULENT&family=Inter+Tight:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* VOICE: quiet luxury — The Row, Toteme, Celine. Tiny, thin type; enormous object.
+   IDEA: a rigid gift box seen head-on, almost filling the screen, that opens as you scroll.
+   PICTURE: frontal box layers (lid, opening, front) + vector succulent from Figma that rises and breathes.
+   COLOUR and TYPE: warm stone ground, moss-black lacquer, champagne foil; Helvetica Neue / Avenir light, Inter Tight fallback.
+   LAYOUT: two sticky scenes, then collection, bespoke, occasions, process, care, FAQ, order, footer. Five languages. */
+:root{color-scheme:light;--bg:#ECE9E3;--ink:#171815;--mute:#6A6B64;--line:rgba(23,24,21,.14);--panel:#E3DFD7;
+--deep:#203328;--onDeep:#E7E3DA;--foil:#C8B47E;
+--head:"Cinzel","Trajan Pro",Georgia,serif;--sans:"Helvetica Neue","Avenir Next","Avenir",Helvetica,"Inter Tight",Arial,sans-serif}
+*{box-sizing:border-box;min-width:0}
+[hidden]{display:none!important}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:300 14px/1.7 var(--sans);overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3{font-weight:300;line-height:1.2;letter-spacing:-.005em;text-wrap:balance;margin:0}
+h1{font-size:26px}h2{font-size:clamp(19px,1.8vw,24px)}h3{font-size:15px;font-weight:400}
+p{margin:0 0 1em;max-width:60ch}
+.band{padding:clamp(64px,9vw,140px) max(5vw,20px)}
+.wrap{max-width:1240px;margin:0 auto}
+.mute{color:var(--mute)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);font:400 12px/1 var(--sans);letter-spacing:.08em;text-decoration:none;cursor:pointer;transition:background .3s,color .3s}
+.btn:hover{background:transparent;color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--bg)}
+.link{font-size:12px;letter-spacing:.06em;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+
+/* header */
+header{position:fixed;inset:0 0 auto;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px;padding:0 max(3vw,16px);background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+header nav{display:flex;gap:26px;font-size:12px;letter-spacing:.03em}
+header nav a{text-decoration:none;padding:12px 0}
+.logo{font:400 12px/1 var(--sans);letter-spacing:.5em;text-decoration:none;padding:14px 0 14px .5em}
+.hr{justify-self:end;display:flex;gap:18px;align-items:center}
+.hr .btn{min-height:34px;padding:0 16px}
+.langs{position:relative}
+.lcur{background:none;border:0;color:var(--ink);font:300 12px/1 var(--sans);letter-spacing:.03em;min-height:34px;min-width:44px;cursor:pointer;padding:0 14px 0 4px;position:relative}
+.lcur::after{content:"";position:absolute;right:3px;top:50%;width:5px;height:5px;border-right:1px solid;border-bottom:1px solid;transform:translateY(-70%) rotate(45deg);transition:transform .25s}
+.langs.open .lcur::after{transform:translateY(-25%) rotate(225deg)}
+.lmenu{position:absolute;top:100%;right:0;margin:6px 0 0;padding:6px 0;list-style:none;background:var(--bg);border:1px solid var(--line);min-width:150px;box-shadow:0 16px 40px rgba(0,0,0,.08);opacity:0;transform:translateY(-4px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:5}
+.langs.open .lmenu{opacity:1;transform:none;pointer-events:auto}
+.lmenu button{display:flex;justify-content:space-between;gap:16px;width:100%;background:none;border:0;color:var(--mute);font:300 12px/1 var(--sans);letter-spacing:.03em;padding:12px 16px;cursor:pointer;text-align:left}
+.lmenu button:hover,.lmenu button[aria-current=true]{color:var(--ink)}
+.lmenu small{font-size:12px;letter-spacing:.03em}
+nav .lmenu{position:static;box-shadow:none;margin-top:4px}
+nav .langs:not(.open) .lmenu{display:none}
+nav .langs{flex-direction:column;align-items:flex-start}
+nav .lcur{padding-left:0;min-width:0;text-align:left}
+nav .lmenu{border:0;padding:0;min-width:0}
+nav .lmenu button{padding:12px 0;justify-content:flex-start;gap:10px}
+#menuBtn{display:none;background:none;border:0;color:inherit;font:400 12px var(--sans);min-height:44px;padding:0 4px;cursor:pointer}
+nav .langs{display:none}
+@media(max-width:820px){header{grid-template-columns:auto 1fr auto}header nav{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;padding:8px 20px 20px;background:var(--bg);border-bottom:1px solid var(--line)}header.open nav{display:flex}header nav a{padding:14px 0;border-bottom:1px solid var(--line)}nav .langs{display:flex;padding-top:12px}.hr .langs{display:none}#menuBtn{display:block}header .logo{grid-column:2;justify-self:center}}
+
+/* scenes */
+.seq{position:relative;height:280vh;--bh:92px}
+.seq.b{height:330vh}
+.sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.stage{position:absolute;top:64px;bottom:var(--bh);left:0;right:0;display:grid;place-items:center}
+.zoom{will-change:transform;transform-origin:50% 50%}
+.bar{position:absolute;left:0;right:0;bottom:0;height:var(--bh);padding:0 max(3vw,20px);border-top:1px solid var(--line)}
+.cap{position:absolute;left:max(3vw,20px);right:120px;top:50%;transform:translateY(-50%);opacity:0;pointer-events:none}
+.cap.on{pointer-events:auto}
+.cap b{display:block;font-weight:400;font-size:14px}
+.cap span{display:block;color:var(--mute);font-size:13px;max-width:56ch}
+.cap .link{display:inline-block;margin-top:6px}
+.hint{position:absolute;right:max(3vw,20px);top:50%;transform:translateY(-50%);font-size:11px;letter-spacing:.08em;color:var(--mute);display:flex;align-items:center;gap:12px}
+.hint i{display:block;width:1px;height:30px;background:linear-gradient(var(--ink),transparent);animation:drip 2.4s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media(max-width:600px){.seq{--bh:128px}.cap{right:20px;top:18px;transform:none}.hint{display:none}}
+
+/* the box */
+.box{position:relative;container-type:inline-size;width:var(--bw,100%);--l:0;--lo:1;--r:0;--s:0;--so:1}
+.cap-b{aspect-ratio:1/.8}
+.gar-b{aspect-ratio:1/.46}
+.box>*{position:absolute}
+.shd{left:-6%;width:112%;background:radial-gradient(closest-side,rgba(20,24,20,.32),rgba(20,24,20,0))}
+.open-s{left:0;width:100%;clip-path:polygon(2.2% 0,97.8% 0,100% 100%,0 100%);background:linear-gradient(#090D0B,#18211C)}
+.front{left:0;width:100%;background:linear-gradient(180deg,#2E4537,#21362A 78%,#1C2E24)}
+.front::after,.lidf::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,.07),rgba(255,255,255,0) 38%,rgba(0,0,0,.16))}
+.lid{will-change:transform,opacity}
+.lidt{position:absolute;left:0;right:0;top:0;height:12%;clip-path:polygon(1.4% 0,98.6% 0,100% 100%,0 100%);background:linear-gradient(#3F5848,#33493B)}
+.lidf{position:absolute;left:0;right:0;top:12%;bottom:0;background:linear-gradient(180deg,#32493B,#24392D)}
+.hair{position:absolute;left:2.6%;right:2.6%;height:0;border-top:1px solid var(--foil);opacity:.75}
+.mark{position:absolute;left:0;right:0;text-align:center;color:var(--foil);font:400 1.15cqw/1 var(--sans);letter-spacing:.62em;padding-left:.62em}
+.mark.sm{font-size:.62cqw;letter-spacing:.5em;opacity:.8}
+.pl{will-change:transform}
+.pl svg{display:block;width:100%;height:auto;overflow:visible}
+.cap-b .shd{top:93%;height:14%}
+.cap-b .open-s{top:30%;height:5.5%}
+.cap-b .pl{left:25%;width:50%;bottom:4%;transform:translateY(calc(var(--r)*-30cqw))}
+.cap-b .front{top:35%;height:65%}
+.cap-b .lid{left:-1.5%;width:103%;top:9%;height:31%;opacity:var(--lo);transform:translateY(calc(var(--l)*-92cqw)) scale(calc(1 + var(--l)*.06))}
+.gar-b .shd{top:88%;height:22%}
+.gar-b .open-s{top:40%;height:6.5%}
+.gar-b .pl{width:30%;bottom:4%;transform:translateY(calc(var(--r)*-21cqw))}
+.gar-b .front{top:46%;height:54%}
+.gar-b .slv{left:-1.5%;width:103%;top:30%;height:70%;opacity:var(--so);transform:translateX(calc(var(--s)*125cqw));will-change:transform,opacity}
+.gar-b .slv .lidt{height:10%}.gar-b .slv .lidf{top:10%}
+.box.open .lid,.box.open .slv{display:none}
+.box.open{--r:1}
+.lf{transform-box:view-box;transform-origin:600px 485px;animation:br 7s ease-in-out infinite alternate}
+@keyframes br{from{transform:rotate(-.9deg) scale(.988)}to{transform:rotate(.9deg) scale(1.012)}}
+.v-blue{filter:hue-rotate(52deg) saturate(.72) brightness(1.02)}
+.v-deep{filter:hue-rotate(-14deg) saturate(1.45) brightness(.8)}
+
+.phb{position:relative;width:var(--bw,100%);aspect-ratio:935/1015;background:var(--bg);--l:0;--l2:0}
+.phb img{position:absolute;display:block;user-select:none;-webkit-user-drag:none}
+.phb .base{inset:0;width:100%;height:100%;mix-blend-mode:multiply}
+.phb .lidp{left:18.717%;top:7.488%;width:62.139%;height:auto;transform:translateY(calc((1 - var(--l))*57.26% - var(--l2)*9%));will-change:transform}
+.phb.gb{aspect-ratio:1376/768}
+.phb.gb .lidp{left:19.767%;top:8.203%;width:60.392%;transform:translateY(calc((1 - var(--l))*105.26% - var(--l2)*14%))}
+.ph-wrap{background:inherit;width:100%;transition:background .4s}
+.ph-wrap img{display:block;width:100%;height:auto;mix-blend-mode:multiply}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:32px}
+.duo figure{margin:0}.duo figcaption{margin-top:10px;font-size:13px;color:var(--mute)}
+/* statement */
+.deep{background:var(--deep);color:var(--onDeep)}
+.deep .mute{color:color-mix(in srgb,var(--onDeep) 62%,transparent)}
+.statement{font-size:clamp(18px,1.9vw,24px);line-height:1.45;max-width:34ch;margin:0 auto;text-align:center;text-wrap:balance}
+.terms{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 36px;margin-top:40px;font-size:12px;letter-spacing:.04em;color:color-mix(in srgb,var(--onDeep) 65%,transparent)}
+
+/* sections */
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-bottom:40px}
+.head p{margin:0}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,2vw,28px)}
+.card{text-decoration:none;display:block}
+.card .pic{aspect-ratio:4/5;background:var(--panel);display:flex;align-items:center;justify-content:center;padding:16% 12% 8%;transition:background .4s}
+.card:hover .pic{background:#DFDAD2}
+.card .meta{display:flex;justify-content:space-between;gap:16px;padding-top:14px;align-items:baseline;font-size:13px}
+.card .meta span{color:var(--mute)}
+@media(max-width:700px){.cards{gap:10px}.card .pic{padding:4%!important;aspect-ratio:3/4}.card .meta{padding-top:10px}main[data-view=home] .card h3{font-size:16px}.card .meta span{font-size:11px;line-height:1.35}}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,6vw,96px)}
+@media(max-width:860px){.split{grid-template-columns:minmax(0,1fr)}}
+.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.rows li{display:grid;grid-template-columns:minmax(0,10rem) minmax(0,1fr);gap:4px 24px;padding:16px 0;border-bottom:1px solid var(--line)}
+.rows b{font-weight:400}
+.rows span{color:var(--mute)}
+@media(max-width:560px){.rows li{grid-template-columns:minmax(0,1fr)}}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.tags span{border:1px solid rgba(231,227,218,.22);padding:8px 16px;font-size:12px;letter-spacing:.03em}
+.weeks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px}
+.weeks li{border-top:1px solid var(--line);padding:18px 0 26px}
+.weeks em{display:block;font-style:normal;font-size:12px;color:var(--mute);letter-spacing:.04em;margin-bottom:8px}
+.weeks b{display:block;font-weight:400;margin-bottom:4px}
+.weeks span{color:var(--mute)}
+@media(max-width:860px){.weeks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.weeks{grid-template-columns:minmax(0,1fr)}}
+.care{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:32px}
+.care h3{margin-bottom:6px}
+@media(max-width:700px){.care{grid-template-columns:minmax(0,1fr)}}
+details{border-bottom:1px solid var(--line)}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:16px 36px 16px 0;font-weight:400;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:6px;top:50%;width:8px;height:8px;border-right:1px solid;border-bottom:1px solid;transform:translateY(-70%) rotate(45deg);transition:transform .3s}
+details[open] summary::after{transform:translateY(-30%) rotate(225deg)}
+details p{color:var(--mute);padding-bottom:6px}
+
+/* form */
+form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 24px}
+.full{grid-column:1/-1}
+label{display:grid;gap:4px;font-size:12px;letter-spacing:.02em;color:color-mix(in srgb,var(--onDeep) 70%,transparent)}
+input,select,textarea{font:300 16px/1.4 var(--sans);color:var(--onDeep);background:transparent;border:0;border-bottom:1px solid rgba(231,227,218,.35);padding:8px 0;min-height:42px;border-radius:0;width:100%}
+select{appearance:none;background:linear-gradient(45deg,transparent 50%,currentColor 50%) right 6px center/5px 5px no-repeat,linear-gradient(-45deg,transparent 50%,currentColor 50%) right 1px center/5px 5px no-repeat}
+select option{background:var(--deep);color:var(--onDeep)}
+textarea{min-height:84px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-bottom-color:var(--onDeep)}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:12px}
+.chk input{width:16px;min-height:16px;height:16px;margin-top:2px;accent-color:var(--onDeep);flex:none}
+.err{color:#E3A59B;font-size:12px;min-height:1.4em;margin:0}
+@media(max-width:600px){form{grid-template-columns:minmax(0,1fr)}}
+.deep .btn{background:var(--onDeep);color:var(--deep);border-color:var(--onDeep)}
+.deep .btn.ghost{background:transparent;color:var(--onDeep)}
+.out{border:1px solid rgba(231,227,218,.22);padding:20px;margin-top:24px}
+.out pre{white-space:pre-wrap;font:300 13px/1.6 var(--sans);margin:0 0 16px;max-height:240px;overflow:auto}
+.acts{display:flex;flex-wrap:wrap;gap:10px}
+.contact dl{margin:28px 0 0;display:grid;gap:16px}
+.contact dt{font-size:11px;letter-spacing:.04em;color:color-mix(in srgb,var(--onDeep) 60%,transparent)}
+.contact dd{margin:2px 0 0;font-size:15px}
+.contact dd a{text-decoration:none}
+
+/* product */
+.ph{padding-top:calc(64px + 4vw)}
+.pgrid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,5vw,80px);align-items:start}
+.pgrid .pic{aspect-ratio:1;background:var(--panel);display:flex;align-items:center;justify-content:center;padding:16% 12% 8%}
+.spec{margin:28px 0;border-top:1px solid var(--line)}
+.spec div{display:grid;grid-template-columns:8rem minmax(0,1fr);gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}
+.spec dt{color:var(--mute)}.spec dd{margin:0}
+@media(max-width:860px){.pgrid{grid-template-columns:minmax(0,1fr)}}
+.vars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:32px}
+.vars .pic{aspect-ratio:1;background:var(--panel);display:flex;align-items:center;justify-content:center;padding:14%}
+.vars .pic>div{width:100%}
+.vars p{margin-top:10px;font-size:13px}
+@media(max-width:560px){.vars{grid-template-columns:minmax(0,1fr)}}
+.back{display:inline-block;margin-bottom:24px;font-size:12px;color:var(--mute);text-decoration:none;padding:10px 0}
+
+/* legal */
+.legal{max-width:720px;margin:0 auto;padding-top:calc(64px + 5vw)}
+.legal h1{margin-bottom:6px}
+.legal h2{font-size:16px;font-weight:400;margin:36px 0 10px}
+.legal ul{padding-left:1.1em}
+.lg-note{font-size:12px;color:var(--mute);border:1px solid var(--line);padding:10px 14px;margin-bottom:24px}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:56px max(5vw,20px) 36px;font-size:13px}
+.fgrid{display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:28px}
+.fgrid h4{font-weight:400;font-size:11px;letter-spacing:.06em;color:var(--mute);margin:0 0 12px}
+.fgrid a,.fgrid button{display:block;text-decoration:none;padding:3px 0;background:none;border:0;color:inherit;font:inherit;cursor:pointer;text-align:left}
+.fine{margin-top:48px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:11px;color:var(--mute)}
+@media(max-width:760px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.fgrid>div:first-child{grid-column:1/-1}}
+
+#cookie{position:fixed;left:16px;bottom:16px;z-index:30;max-width:360px;background:var(--bg);border:1px solid var(--line);padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.12)}
+#cookie p{font-size:12px;color:var(--mute)}
+#cookie .btn{min-height:38px;padding:0 16px}
+@media(max-width:480px){#cookie{right:16px;max-width:none}}
+
+/* ---- centred, large-headline home ---- */
+main[data-view=home] h2{font-size:clamp(30px,4.2vw,58px);line-height:1.08;letter-spacing:-.02em;font-weight:300;text-align:center;margin-left:auto;margin-right:auto;max-width:18ch}
+main[data-view=home] .band{text-align:center}
+main[data-view=home] p{margin-left:auto;margin-right:auto}
+main[data-view=home] .head{flex-direction:column;align-items:center;justify-content:center;gap:14px;margin-bottom:clamp(36px,5vw,64px)}
+main[data-view=home] .head p,.lead{font-size:clamp(15px,1.25vw,18px);color:var(--mute);max-width:46ch}
+main[data-view=home] .split{grid-template-columns:minmax(0,1fr);justify-items:center;gap:clamp(28px,4vw,56px)}
+main[data-view=home] .split>*{width:100%;max-width:820px}
+main[data-view=home] .rows{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px;border:0;max-width:1100px}
+main[data-view=home] .rows li{display:block;border-top:1px solid var(--line);border-bottom:0;padding:22px 8px 26px}
+main[data-view=home] .rows b{display:block;font-size:17px;margin-bottom:6px}
+@media(max-width:760px){main[data-view=home] .rows{grid-template-columns:minmax(0,1fr)}}
+main[data-view=home] .tags{justify-content:center}
+main[data-view=home] .weeks li,main[data-view=home] .care>div{text-align:center}
+main[data-view=home] .weeks b{font-size:17px}
+main[data-view=home] .care h3{font-size:17px}
+main[data-view=home] .card .meta{flex-direction:column;align-items:center;gap:2px}
+main[data-view=home] .card h3{font-size:clamp(20px,2vw,28px);font-weight:300}
+main[data-view=home] details{text-align:left}
+main[data-view=home] summary{font-size:16px}
+main[data-view=home] .contact dl{grid-template-columns:repeat(2,minmax(0,1fr));text-align:center;max-width:620px;margin:36px auto 0}
+main[data-view=home] #f{text-align:left;max-width:720px;margin:0 auto}
+main[data-view=home] .out{text-align:left;max-width:720px;margin-left:auto;margin-right:auto}
+.statement{font-size:clamp(26px,3.4vw,46px)!important;line-height:1.18!important;letter-spacing:-.02em;max-width:24ch!important}
+.terms{font-size:13px!important}
+/* scene captions: centred and large */
+.seq{--bh:clamp(130px,18vh,190px)}
+.bar{text-align:center}
+.cap{left:20px!important;right:20px!important;top:50%!important;transform:translateY(-50%)!important}
+.cap b{font-size:clamp(24px,3vw,44px);font-weight:300;line-height:1.1;letter-spacing:-.02em;max-width:22ch;margin:0 auto}
+.cap span{font-size:clamp(13px,1.1vw,16px);margin:10px auto 0;max-width:52ch}
+.hint{left:50%;right:auto;top:auto;bottom:10px;transform:translateX(-50%)!important;flex-direction:row}
+.hint i{height:18px}
+@media(max-width:600px){.seq{--bh:170px}.hint{display:none}}
+.logo{display:flex!important;flex-direction:column;align-items:center;gap:3px;padding:6px 0!important;text-decoration:none;line-height:1!important;letter-spacing:0!important}
+.logo .lm{width:17px;height:17px;fill:none;stroke:#A88B4E;stroke-width:1.1;stroke-linejoin:round}
+.logo .lw{font:400 17px/1 "Cinzel","Trajan Pro",Georgia,serif;letter-spacing:.1em;padding-left:.1em;color:var(--ink)}
+.logo .lp{font:400 7.5px/1 var(--sans);letter-spacing:.34em;padding-left:.34em;color:var(--mute)}
+#menuBtn{display:none;position:relative;width:44px;height:44px;background:none;border:0;cursor:pointer;padding:0;justify-self:start}
+#menuBtn i{position:absolute;left:10px;right:10px;height:1px;background:var(--ink);transition:transform .3s,top .3s}
+#menuBtn i:nth-child(1){top:15px}#menuBtn i:nth-child(2){top:21.5px;transition:opacity .2s}#menuBtn i:nth-child(3){top:28px}
+header.open #menuBtn i:nth-child(1){top:21.5px;transform:rotate(45deg)}header.open #menuBtn i:nth-child(2){opacity:0}header.open #menuBtn i:nth-child(3){top:21.5px;transform:rotate(-45deg)}
+@media(max-width:820px){#menuBtn{display:block}header{grid-template-columns:1fr auto 1fr!important}header .logo{grid-column:2}}
+.cap b{max-width:30ch}
+.hint{left:auto!important;right:max(3vw,20px);top:14px!important;bottom:auto!important;transform:none!important}
+.steps{list-style:none;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,3vw,48px);max-width:1080px;position:relative}
+.steps::before{content:"";position:absolute;top:64px;left:16.66%;right:16.66%;border-top:1px solid color-mix(in srgb,var(--ink) 22%,transparent)}
+.steps li{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+.ico{position:relative;width:128px;height:128px;border-radius:50%;background:var(--panel);display:grid;place-items:center;margin-bottom:22px;box-shadow:0 0 0 10px var(--bg)}
+.ico svg{width:64px;height:64px;fill:none;stroke:var(--ink);stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}
+.ico svg .g{stroke:#A88B4E}
+.ico .num{position:absolute;top:2px;right:2px;width:32px;height:32px;border-radius:50%;background:#24392D;color:#E7E3DA;font:400 13px/32px var(--sans);text-align:center}
+.steps em{font-style:normal;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.steps b{font-weight:300;font-size:clamp(20px,1.9vw,26px);line-height:1.2;margin-bottom:10px;letter-spacing:-.01em}
+.steps .tx{color:var(--mute);max-width:30ch;min-height:4.8em}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:14px}
+.chips span{font-size:11px;letter-spacing:.04em;padding:6px 12px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
+@media(max-width:760px){
+.steps{grid-template-columns:minmax(0,1fr);gap:30px;max-width:520px}
+.steps::before{top:36px;bottom:36px;left:36px;right:auto;border-top:0;border-left:1px solid color-mix(in srgb,var(--ink) 18%,transparent)}
+.steps li{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:18px;text-align:left;align-items:start}
+.steps li>*:not(.ico){grid-column:2}
+.ico{grid-row:1/span 4;width:72px;height:72px;margin:0;box-shadow:0 0 0 6px var(--bg)}
+.ico svg{width:38px;height:38px}
+.ico .num{width:22px;height:22px;font-size:11px;line-height:22px;top:-2px;right:-2px}
+.steps em{margin:4px 0 4px}.steps b{font-size:19px;margin-bottom:6px}
+.steps .tx{min-height:0;max-width:none;font-size:13px}
+.chips{justify-content:flex-start;margin-top:10px}
+.chips span{font-size:10.5px;padding:5px 10px}}
+.fq{margin-top:14px;display:grid;gap:2px}.fq a{padding:3px 0;text-decoration:none}
+.fa{display:block;padding:3px 0;color:var(--mute)}
+.fbtn{display:none}
+@media(max-width:760px){
+footer{padding-top:36px}
+.fgrid{gap:0 24px}
+.fgrid>div:first-child{margin-bottom:20px}
+.fbtn{display:block;grid-column:1/-1;width:100%;background:none;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--ink);font:400 14px/1.4 var(--sans);text-align:left;padding:16px 36px 16px 0;position:relative;cursor:pointer}
+.fbtn::after{content:"";position:absolute;right:6px;top:50%;width:8px;height:8px;border-right:1px solid;border-bottom:1px solid;transform:translateY(-70%) rotate(45deg);transition:transform .3s}
+footer.open .fbtn::after{transform:translateY(-30%) rotate(225deg)}
+footer:not(.open) .fgrid>div:not(:first-child),footer:not(.open) .fine{display:none}
+footer.open .fgrid>div:not(:first-child){padding-top:20px}
+.fine{margin-top:28px}}
+.statement .fade{display:block;--w:0;-webkit-mask-image:linear-gradient(90deg,transparent calc(var(--w)*140% - 40%),#000 calc(var(--w)*140%));mask-image:linear-gradient(90deg,transparent calc(var(--w)*140% - 40%),#000 calc(var(--w)*140%));filter:blur(calc(var(--w)*1.2px))}
+@media(prefers-reduced-motion:reduce){.seq,.seq.b{height:100vh}.hint i,.lf{animation:none}}
+</style>
+</head>
+<body>
+<svg style="position:absolute;width:0;height:0" aria-hidden="true" focusable="false"><defs>
+<linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#DDBFBC"/><stop offset=".16" stop-color="#D0D6C5"/><stop offset=".55" stop-color="#C4CFBC"/><stop offset="1" stop-color="#9BAF96"/></linearGradient>
+<linearGradient id="gb" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#DABAB6"/><stop offset=".2" stop-color="#CCD2C0"/><stop offset=".62" stop-color="#B4C2AA"/><stop offset="1" stop-color="#91A78D"/></linearGradient>
+<linearGradient id="gp0" x1="345" y1="650" x2="855" y2="650" gradientUnits="userSpaceOnUse"><stop stop-color="#E1DED5"/><stop offset=".25" stop-color="#F0EEE7"/><stop offset=".6" stop-color="#F4F2EC"/><stop offset="1" stop-color="#D2D0C5"/></linearGradient>
+<linearGradient id="gp1" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#F7F4ED"/><stop offset="1" stop-color="#DCDACE"/></linearGradient>
+</defs></svg>
+
+<header id="hdr">
+  <button id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Menu"><i></i><i></i><i></i></button>
+  <nav id="nav">
+    <a href="#capsule">Capsule</a>
+    <a href="#garden">Capsule Garden</a>
+    <a href="#how" data-i="corp"></a>
+    <a href="#faq" data-i="faq"></a>
+    <div class="langs"></div>
+  </nav>
+  <a class="logo" href="#top" aria-label="CAPSULENT Porto"><svg class="lm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c-2.2 3-2.2 6.2 0 9.5 2.2-3.3 2.2-6.5 0-9.5z"/><path d="M12 13c-3.8-.6-6-2.8-7-6.2 3.2.2 6.1 2.3 7 6.2zM12 13c3.8-.6 6-2.8 7-6.2-3.2.2-6.1 2.3-7 6.2z"/><path d="M5 13.5h14v7.5H5zM5 13.5l7 4.2 7-4.2"/></svg><span class="lw">CAPSULENT</span><span class="lp">PORTO</span></a>
+  <div class="hr"><div class="langs"></div><a class="btn" href="#order" data-i="order"></a></div>
+</header>
+
+<main data-view="home">
+  <section class="seq" id="top">
+    <div class="sticky">
+      <div class="stage"><div class="zoom" id="zA"><div class="phb" id="boxA"><img class="base" src="assets/capsule-base.jpg" alt="" width="935" height="1015"><img class="lidp" src="assets/capsule-lid.jpg" alt="" width="581" height="358"></div></div></div>
+      <div class="bar">
+        <div class="cap" id="ca0"><b data-i="heroT"></b><span data-i="heroS"></span></div>
+        <div class="cap" id="ca1"><b data-i="a2"></b></div>
+        <div class="cap" id="ca2"><b>Capsule</b><span data-i="a3p"></span><a class="link" href="#capsule" data-i="discover"></a></div>
+        <div class="hint" id="hint"><span data-i="hint"></span><i></i></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band deep">
+    <p class="statement" id="stm"><span class="fade" data-i="st1"></span><span data-i="st2"></span></p>
+    <div class="terms"><span data-i="t1"></span><span data-i="t2"></span><span data-i="t3"></span><span data-i="t4"></span></div>
+  </section>
+
+  
+  <section class="band" id="collection">
+    <div class="wrap">
+      <div class="head"><h2 data-i="colH"></h2><p class="mute" data-i="colP"></p></div>
+      <div class="cards">
+        <a class="card" href="#capsule"><div class="pic" style="padding:6%"><div class="ph-wrap"><img src="assets/capsule-open.jpg" alt="Capsule" loading="lazy"></div></div><div class="meta"><h3>Capsule</h3><span data-i="c1"></span></div></a>
+        <a class="card" href="#garden"><div class="pic" style="padding:6%"><div class="ph-wrap"><img src="assets/garden-open.jpg" alt="Capsule Garden" loading="lazy"></div></div><div class="meta"><h3>Capsule Garden</h3><span data-i="c2"></span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="how">
+    <div class="wrap">
+      <div class="head"><h2 data-i="howH"></h2></div>
+      <ol class="steps">
+        <li><div class="ico"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 21h14v19H8zM7 16h16v5H7zM26 31h16v9H26zM25 27h18v4H25z"/></svg><span class="num">1</span></div><em data-i="s1l"></em><b data-i="s1t"></b><span class="tx" data-i="s1"></span><div class="chips"><span data-i="c1a"></span><span data-i="c1b"></span></div></li>
+        <li><div class="ico"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 23h24v17H12zM11 16h26v7H11z"/><path class="g" d="M24 26.5c-1.2 1.6-1.2 3.4 0 5.2 1.2-1.8 1.2-3.6 0-5.2zM24 31.7c-2-.3-3.2-1.5-3.8-3.3 1.7.1 3.3 1.2 3.8 3.3zM24 31.7c2-.3 3.2-1.5 3.8-3.3-1.7.1-3.3 1.2-3.8 3.3zM20.5 34.5h7"/></svg><span class="num">2</span></div><em data-i="s2l"></em><b data-i="s2t"></b><span class="tx" data-i="s2"></span><div class="chips"><span data-i="c2a"></span><span data-i="c2b"></span><span data-i="c2c"></span><span data-i="c2d"></span><span data-i="c2e"></span></div></li>
+        <li><div class="ico"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M5 27h14v13H5zM4 23h16v4H4z"/><path d="M23 33.5h9" stroke-dasharray="2 2.5"/><path class="g" d="M40 17c-3.3 0-5.5 2.4-5.5 5.4 0 4 5.5 10.1 5.5 10.1s5.5-6.1 5.5-10.1c0-3-2.2-5.4-5.5-5.4z"/><circle class="g" cx="40" cy="22.4" r="1.8"/><path d="M33 40h14"/></svg><span class="num">3</span></div><em data-i="s3l"></em><b data-i="s3t"></b><span class="tx" data-i="s3"></span><div class="chips"><span data-i="c3a"></span><span data-i="c3b"></span></div></li>
+      </ol>
+      <div style="margin-top:clamp(32px,4vw,56px)"><a class="btn" href="#order" data-i="quote"></a></div>
+    </div>
+  </section>
+
+  <section class="band" id="faq" style="padding-top:0">
+    <div class="wrap split">
+      <h2 data-i="fqH"></h2>
+      <div>
+        <details><summary data-i="q1"></summary><p data-i="qa1"></p></details>
+        <details><summary data-i="q2"></summary><p data-i="qa2"></p></details>
+        <details><summary data-i="q3"></summary><p data-i="qa3"></p></details>
+        <details><summary data-i="q4"></summary><p data-i="qa4"></p></details>
+        <details><summary data-i="q5"></summary><p data-i="qa5"></p></details>
+        <details><summary data-i="q7"></summary><p data-i="qa7"></p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band deep" id="order">
+    <div class="wrap split">
+      <div class="contact">
+        <h2 data-i="orH"></h2>
+        <p class="lead" style="margin-top:18px;color:color-mix(in srgb,var(--onDeep) 65%,transparent)" data-i="orP"></p>
+        
+      </div>
+      <div>
+        <form id="f" novalidate>
+          <label><span data-i="fCo"></span><input id="i-co" autocomplete="organization"></label>
+          <label><span data-i="fNm"></span><input id="i-nm" autocomplete="name"></label>
+          <label><span data-i="fEm"></span><input id="i-em" type="email" autocomplete="email"></label>
+          <label><span data-i="fPh"></span><input id="i-ph" type="tel" autocomplete="tel"></label>
+          <label><span data-i="fFm"></span><select id="i-fm"><option>Capsule</option><option>Capsule Garden</option><option data-i="fo3"></option><option data-i="fo4"></option></select></label>
+          <label><span data-i="fQt"></span><input id="i-qt" type="number" min="25" step="1" value="25" inputmode="numeric"></label>
+          <label class="full"><span data-i="fDt"></span><input id="i-dt" type="date"></label>
+          <label class="full"><span data-i="fMs"></span><textarea id="i-ms" data-ip="fMsP"></textarea></label>
+          <label class="chk full"><input type="checkbox" id="i-ok"><span data-i="fOk"></span></label>
+          <p class="err full" id="err" role="alert"></p>
+          <div class="full"><button class="btn" type="submit" data-i="fGo"></button></div>
+        </form>
+        <div class="out" id="out" hidden>
+          <p class="mute" style="font-size:12px" data-i="fReady"></p>
+          <pre id="sum"></pre>
+          <div class="acts"><a class="btn" id="mail" href="#" data-i="sMail"></a><a class="btn ghost" id="wa" href="#" data-i="sWa"></a><button class="btn ghost" id="cp" type="button" data-i="sCp"></button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main data-view="capsule" hidden>
+  <section class="band ph"><div class="wrap">
+    <a class="back" href="#collection">← <span data-i="back"></span></a>
+    <div class="pgrid">
+      <div class="pic" style="padding:6% 14%"><div class="ph-wrap"><img src="assets/capsule-open.jpg" alt="Capsule"></div></div>
+      <div>
+        <h1>Capsule</h1>
+        <p class="mute" style="margin-top:14px" data-i="capD"></p>
+        <dl class="spec">
+          <div><dt data-i="sp1"></dt><dd data-i="cv1"></dd></div>
+          <div><dt data-i="sp2"></dt><dd data-i="cv2"></dd></div>
+          <div><dt data-i="sp3"></dt><dd data-i="cv3"></dd></div>
+          <div><dt data-i="sp4"></dt><dd data-i="v4"></dd></div>
+          <div><dt data-i="sp5"></dt><dd data-i="v5"></dd></div>
+          <div><dt data-i="sp6"></dt><dd data-i="v6"></dd></div>
+          <div><dt data-i="sp7"></dt><dd data-i="v7"></dd></div>
+        </dl>
+        <div class="acts"><a class="btn" href="#order" data-i="quote"></a><a class="btn ghost" href="https://wa.me/351912255675">WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="duo" style="margin-top:clamp(64px,8vw,120px)">
+      <figure><div class="ph-wrap"><img src="assets/capsule-closed.jpg" alt="" loading="lazy"></div><figcaption data-i="phClosed"></figcaption></figure>
+      <figure><div class="ph-wrap"><img src="assets/capsule-open.jpg" alt="" loading="lazy"></div><figcaption data-i="phOpen"></figcaption></figure>
+    </div>
+  </div></section>
+</main>
+
+<main data-view="garden" hidden>
+  <section class="band ph"><div class="wrap">
+    <a class="back" href="#collection">← <span data-i="back"></span></a>
+    <div class="pgrid">
+      <div class="pic" style="padding:6%"><div class="ph-wrap"><img src="assets/garden-open.jpg" alt="Capsule Garden"></div></div>
+      <div>
+        <h1>Capsule Garden</h1>
+        <p class="mute" style="margin-top:14px" data-i="garD"></p>
+        <dl class="spec">
+          <div><dt data-i="sp1"></dt><dd data-i="gv1"></dd></div>
+          <div><dt data-i="sp2"></dt><dd data-i="gv2"></dd></div>
+          <div><dt data-i="sp3"></dt><dd data-i="gv3"></dd></div>
+          <div><dt data-i="sp4"></dt><dd data-i="v4"></dd></div>
+          <div><dt data-i="sp5"></dt><dd data-i="v5"></dd></div>
+          <div><dt data-i="sp6"></dt><dd data-i="v6"></dd></div>
+          <div><dt data-i="sp7"></dt><dd data-i="v7"></dd></div>
+        </dl>
+        <div class="acts"><a class="btn" href="#order" data-i="quote"></a><a class="btn ghost" href="https://wa.me/351912255675">WhatsApp</a></div>
+      </div>
+    </div>
+    <div class="duo" style="margin-top:clamp(64px,8vw,120px)">
+      <figure><div class="ph-wrap"><img src="assets/garden-closed.jpg" alt="" loading="lazy"></div><figcaption data-i="phClosed"></figcaption></figure>
+      <figure><div class="ph-wrap"><img src="assets/garden-open.jpg" alt="" loading="lazy"></div><figcaption data-i="phOpen"></figcaption></figure>
+    </div>
+  </div></section>
+</main>
+
+<main data-view="privacy" hidden><div class="band legal">
+  <p class="lg-note" data-i="legalNote"></p>
+  <article class="lg-en">
+  <h1>Privacy Policy</h1><p class="mute">Last updated: 22 November 2026</p>
+  <h2>Who we are</h2>
+  <p>CAPSULENT is a trading name of Anton Eremin, sole trader (empresário em nome individual), NIF PT314512675, Rua Manuel Bandeira 147, 4150-479 Porto, Portugal. We are the controller of the personal data described here. Contact: order@capsulent.com, +351 912 255 675.</p>
+  <h2>What we collect</h2>
+  <ul><li>Contact details you give us: name, company, job title, email, phone.</li><li>Order details: quantities, artwork, messages for cards, invoicing details.</li><li>Recipient details you send us for delivery: names, addresses, phone numbers.</li><li>Messages you send by email, WhatsApp, Telegram, SMS or Instagram.</li><li>Technical data needed to run the site, such as your cookie and language choice.</li></ul>
+  <h2>Why, and on what legal basis</h2>
+  <ul><li>To answer requests, prepare quotes and fulfil orders — steps prior to a contract and performance of a contract (GDPR art. 6(1)(b)).</li><li>To issue invoices and keep accounting records — legal obligation (art. 6(1)(c)).</li><li>To keep in touch with business contacts about our products — legitimate interest (art. 6(1)(f)); you can object at any time.</li><li>Optional cookies, if we ever use them — consent (art. 6(1)(a)).</li></ul>
+  <h2>Recipient data</h2>
+  <p>When a client sends us a list of recipients, the client confirms that it may share that data with us for delivery. We use it only to deliver that order.</p>
+  <h2>Who we share it with</h2>
+  <p>Couriers and delivery partners, our print and packaging suppliers (artwork only), our accountant, and providers of hosting, email and messaging. Where a provider is outside the European Economic Area, we rely on an adequacy decision or the European Commission's standard contractual clauses.</p>
+  <h2>How long we keep it</h2>
+  <p>Requests that do not become orders: up to 12 months. Order and invoicing records: for the period required by Portuguese tax and accounting law. Recipient lists: deleted within 3 months of delivery unless the client asks us to keep them for a repeat order.</p>
+  <h2>Your rights</h2>
+  <p>You may ask for access, correction, deletion, restriction, portability, or object to processing, and withdraw consent at any time, by writing to order@capsulent.com. You may also complain to the Portuguese data protection authority, the Comissão Nacional de Proteção de Dados (www.cnpd.pt).</p>
+  </article>
+  <article class="lg-pt" hidden>
+  <h1>Política de Privacidade</h1><p class="mute">Última atualização: 22 de novembro de 2026</p>
+  <h2>Quem somos</h2>
+  <p>CAPSULENT é uma designação comercial de Anton Eremin, empresário em nome individual, NIF PT314512675, Rua Manuel Bandeira 147, 4150-479 Porto, Portugal. Somos o responsável pelo tratamento dos dados pessoais aqui descritos. Contacto: order@capsulent.com, +351 912 255 675.</p>
+  <h2>Que dados recolhemos</h2>
+  <ul><li>Dados de contacto que nos fornece: nome, empresa, cargo, email, telefone.</li><li>Dados da encomenda: quantidades, arte final, mensagens para cartões, dados de faturação.</li><li>Dados de destinatários que nos envia para entrega: nomes, moradas, telefones.</li><li>Mensagens que nos envia por email, WhatsApp, Telegram, SMS ou Instagram.</li><li>Dados técnicos necessários ao funcionamento do site, como a sua escolha de cookies e de idioma.</li></ul>
+  <h2>Finalidades e fundamentos jurídicos</h2>
+  <ul><li>Responder a pedidos, preparar orçamentos e executar encomendas — diligências pré-contratuais e execução de contrato (art. 6.º, n.º 1, al. b) do RGPD).</li><li>Emitir faturas e manter registos contabilísticos — obrigação legal (al. c)).</li><li>Manter contacto com contactos profissionais sobre os nossos produtos — interesse legítimo (al. f)); pode opor-se a qualquer momento.</li><li>Cookies opcionais, se alguma vez os usarmos — consentimento (al. a)).</li></ul>
+  <h2>Dados de destinatários</h2>
+  <p>Quando um cliente nos envia uma lista de destinatários, confirma que pode partilhar esses dados connosco para efeitos de entrega. Usamo-los apenas para entregar essa encomenda.</p>
+  <h2>Com quem partilhamos</h2>
+  <p>Transportadoras e parceiros de entrega, fornecedores de impressão e embalagem (apenas a arte final), o nosso contabilista e prestadores de alojamento, email e mensagens. Quando um prestador se encontra fora do Espaço Económico Europeu, recorremos a uma decisão de adequação ou às cláusulas contratuais-tipo da Comissão Europeia.</p>
+  <h2>Conservação</h2>
+  <p>Pedidos que não resultam em encomenda: até 12 meses. Registos de encomendas e faturação: pelo prazo exigido pela legislação fiscal e contabilística portuguesa. Listas de destinatários: eliminadas até 3 meses após a entrega, salvo pedido do cliente para as manter para uma nova encomenda.</p>
+  <h2>Os seus direitos</h2>
+  <p>Pode pedir acesso, retificação, apagamento, limitação, portabilidade ou opor-se ao tratamento, e retirar o consentimento a qualquer momento, escrevendo para order@capsulent.com. Pode também apresentar reclamação à Comissão Nacional de Proteção de Dados (www.cnpd.pt).</p>
+  </article>
+</div></main>
+
+<main data-view="terms" hidden><div class="band legal">
+  <p class="lg-note" data-i="legalNote"></p>
+  <article class="lg-en">
+  <h1>Terms of Sale</h1><p class="mute">Last updated: 22 November 2026</p>
+  <h2>1. Seller and scope</h2>
+  <p>These terms govern sales by Anton Eremin, sole trader (empresário em nome individual), NIF PT314512675, Rua Manuel Bandeira 147, 4150-479 Porto, Portugal, trading as CAPSULENT. We sell to businesses and organisations (B2B). The written quote accepted by the client, together with these terms, forms the contract.</p>
+  <h2>2. Pre-orders</h2>
+  <ul><li>Minimum order: 25 pieces.</li><li>Orders are placed at least two months before the requested delivery date. Shorter lead times are possible only if confirmed by us in writing.</li><li>An order is confirmed when the client accepts the quote and the advance payment stated in it is received.</li></ul>
+  <h2>3. Design and approval</h2>
+  <p>We send a digital proof of the box, sleeve and card. Production starts only after the client approves the proof in writing. Colours on screen and in print may differ slightly.</p>
+  <h2>4. Prices and payment</h2>
+  <p>Prices are given in euros in the quote, with VAT shown separately where applicable, and are valid for the period stated in it. Delivery is quoted separately. The advance and the balance are payable as set out in the quote; the balance is due before dispatch unless agreed otherwise.</p>
+  <h2>5. Living plants</h2>
+  <p>Each plant is natural and unique: size, shape and colour vary within the variety. If a variety becomes unavailable, we may replace it with one of similar appearance and equal value.</p>
+  <h2>6. Delivery</h2>
+  <p>We deliver in Portugal and the European Union, to one address or to a list supplied by the client. The client is responsible for the accuracy of addresses. Delivery dates are agreed in the quote; we are not liable for carrier delays beyond our control.</p>
+  <h2>7. Damage and complaints</h2>
+  <p>Please inspect deliveries on arrival. Report any damaged plant or box within 48 hours, with photos, to order@capsulent.com. We will replace damaged items or refund their value.</p>
+  <h2>8. Changes and cancellation</h2>
+  <p>Before proof approval, an order may be cancelled and the advance refunded, less design work already done. After approval, costs already incurred for materials and printing are non-refundable. Once plants are potted for the order, it cannot be cancelled.</p>
+  <h2>9. Logos and artwork</h2>
+  <p>The client confirms it holds the rights to the logos and texts it supplies and authorises us to use them only to produce the order. We photograph a finished order for our portfolio only with the client's consent.</p>
+  <h2>10. Liability</h2>
+  <p>Our liability under any order is limited to the value of that order, except where the law does not allow such a limit. Neither party is liable for delays caused by events beyond its reasonable control.</p>
+  <h2>11. Law and disputes</h2>
+  <p>These terms are governed by Portuguese law. Disputes go to the courts of Porto. A complaints book is available online at <a href="https://www.livroreclamacoes.pt">www.livroreclamacoes.pt</a>.</p>
+  </article>
+  <article class="lg-pt" hidden>
+  <h1>Condições de Venda</h1><p class="mute">Última atualização: 22 de novembro de 2026</p>
+  <h2>1. Vendedor e âmbito</h2>
+  <p>Estas condições regem as vendas de Anton Eremin, empresário em nome individual, NIF PT314512675, Rua Manuel Bandeira 147, 4150-479 Porto, Portugal, com a designação comercial CAPSULENT. Vendemos a empresas e organizações (B2B). O orçamento escrito aceite pelo cliente, juntamente com estas condições, constitui o contrato.</p>
+  <h2>2. Pré-encomendas</h2>
+  <ul><li>Encomenda mínima: 25 unidades.</li><li>As encomendas são feitas pelo menos dois meses antes da data de entrega pretendida. Prazos mais curtos só são possíveis se confirmados por nós por escrito.</li><li>Uma encomenda fica confirmada quando o cliente aceita o orçamento e recebemos o adiantamento nele indicado.</li></ul>
+  <h2>3. Design e aprovação</h2>
+  <p>Enviamos uma prova digital da caixa, da cinta e do cartão. A produção só começa após aprovação escrita da prova pelo cliente. As cores no ecrã e na impressão podem diferir ligeiramente.</p>
+  <h2>4. Preços e pagamento</h2>
+  <p>Os preços são indicados em euros no orçamento, com o IVA discriminado quando aplicável, e são válidos pelo prazo nele indicado. A entrega é orçamentada à parte. O adiantamento e o saldo são pagos nos termos do orçamento; o saldo é devido antes da expedição, salvo acordo em contrário.</p>
+  <h2>5. Plantas vivas</h2>
+  <p>Cada planta é natural e única: tamanho, forma e cor variam dentro da variedade. Se uma variedade ficar indisponível, podemos substituí-la por outra de aspeto semelhante e igual valor.</p>
+  <h2>6. Entrega</h2>
+  <p>Entregamos em Portugal e na União Europeia, numa morada ou segundo lista fornecida pelo cliente. O cliente é responsável pela exatidão das moradas. As datas de entrega são acordadas no orçamento; não respondemos por atrasos da transportadora alheios ao nosso controlo.</p>
+  <h2>7. Danos e reclamações</h2>
+  <p>Verifique as entregas à chegada. Comunique qualquer planta ou caixa danificada no prazo de 48 horas, com fotografias, para order@capsulent.com. Substituímos os artigos danificados ou reembolsamos o seu valor.</p>
+  <h2>8. Alterações e cancelamento</h2>
+  <p>Antes da aprovação da prova, a encomenda pode ser cancelada e o adiantamento reembolsado, deduzido o trabalho de design já realizado. Após a aprovação, os custos já incorridos com materiais e impressão não são reembolsáveis. Depois de as plantas serem envasadas para a encomenda, esta não pode ser cancelada.</p>
+  <h2>9. Logótipos e arte final</h2>
+  <p>O cliente declara ser titular dos direitos sobre os logótipos e textos que fornece e autoriza-nos a utilizá-los apenas para produzir a encomenda. Só fotografamos uma encomenda concluída para o nosso portefólio com o consentimento do cliente.</p>
+  <h2>10. Responsabilidade</h2>
+  <p>A nossa responsabilidade em cada encomenda limita-se ao valor dessa encomenda, salvo quando a lei não permita tal limite. Nenhuma das partes responde por atrasos causados por acontecimentos fora do seu controlo razoável.</p>
+  <h2>11. Lei e litígios</h2>
+  <p>Estas condições regem-se pela lei portuguesa. Os litígios são submetidos aos tribunais da comarca do Porto. Está disponível um livro de reclamações eletrónico em <a href="https://www.livroreclamacoes.pt">www.livroreclamacoes.pt</a>.</p>
+  </article>
+</div></main>
+
+<main data-view="cookies" hidden><div class="band legal">
+  <p class="lg-note" data-i="legalNote"></p>
+  <article class="lg-en">
+  <h1>Cookie Policy</h1><p class="mute">Last updated: 22 November 2026</p>
+  <h2>What we use</h2>
+  <p>This site uses only what is strictly necessary for it to work: a small record in your browser of your cookie and language choice. It needs no consent and contains no personal data.</p>
+  <h2>Optional cookies</h2>
+  <p>We use no analytics or advertising cookies at present. If we add them, they will run only after you accept them in the cookie banner, and this policy will list each one, its provider and its lifetime.</p>
+  <h2>Third-party links</h2>
+  <p>Links to Instagram, WhatsApp and Telegram take you to those services, which apply their own cookie and privacy policies.</p>
+  <h2>Your choice</h2>
+  <p>You can change your choice at any time with “Cookie settings” in the footer, or by clearing your browser's site data. Questions: order@capsulent.com</p>
+  </article>
+  <article class="lg-pt" hidden>
+  <h1>Política de Cookies</h1><p class="mute">Última atualização: 22 de novembro de 2026</p>
+  <h2>O que usamos</h2>
+  <p>Este site usa apenas o estritamente necessário para funcionar: um pequeno registo no seu navegador com a sua escolha de cookies e de idioma. Não requer consentimento e não contém dados pessoais.</p>
+  <h2>Cookies opcionais</h2>
+  <p>De momento não usamos cookies de análise nem de publicidade. Se os acrescentarmos, só funcionarão depois de os aceitar no aviso de cookies, e esta política indicará cada um, o fornecedor e a duração.</p>
+  <h2>Ligações de terceiros</h2>
+  <p>As ligações para Instagram, WhatsApp e Telegram levam-no a esses serviços, que aplicam as suas próprias políticas de cookies e privacidade.</p>
+  <h2>A sua escolha</h2>
+  <p>Pode alterar a sua escolha a qualquer momento em “Definições de cookies” no rodapé, ou limpando os dados do site no navegador. Questões: order@capsulent.com</p>
+  </article>
+</div></main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><a class="logo" href="#top" style="align-items:flex-start;padding-left:0"><svg class="lm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c-2.2 3-2.2 6.2 0 9.5 2.2-3.3 2.2-6.5 0-9.5z"/><path d="M12 13c-3.8-.6-6-2.8-7-6.2 3.2.2 6.1 2.3 7 6.2zM12 13c3.8-.6 6-2.8 7-6.2-3.2.2-6.1 2.3-7 6.2z"/><path d="M5 13.5h14v7.5H5zM5 13.5l7 4.2 7-4.2"/></svg><span class="lw">CAPSULENT</span><span class="lp">PORTO</span></a><p class="mute" style="margin-top:10px" data-i="ftTag"></p><div class="fq"><a href="tel:+351912255675">+351 912 255 675</a><a href="https://www.instagram.com/capsulentgift/">Instagram @capsulentgift</a><a href="mailto:order@capsulent.com">order@capsulent.com</a></div></div>
+      <button type="button" class="fbtn" id="fbtn" aria-expanded="false"><span data-i="info"></span></button>
+      <div><h4 data-i="ftCol"></h4><a href="#capsule">Capsule</a><a href="#garden">Capsule Garden</a><a href="#how" data-i="corp"></a></div>
+      <div><h4 data-i="ftCon"></h4><a href="https://wa.me/351912255675">WhatsApp</a><a href="https://t.me/+351912255675">Telegram</a><span class="fa">SMS +351 912 255 675</span><span class="fa">Rua Manuel Bandeira 147<br>4150-479 Porto, Portugal</span></div>
+      <div><h4 data-i="ftLeg"></h4><a href="#terms" data-i="ftTerms"></a><a href="#privacy" data-i="ftPriv"></a><a href="#cookies" data-i="ftCook"></a><button type="button" id="ckOpen" data-i="ftCkSet"></button><a href="https://www.livroreclamacoes.pt">Livro de Reclamações</a></div>
+    </div>
+    <div class="fine"><span>© 2026 CAPSULENT · Anton Eremin, empresário em nome individual · NIF PT314512675</span></div>
+  </div>
+</footer>
+
+<div id="cookie" hidden role="dialog" aria-label="Cookies">
+  <p><span data-i="ck"></span> <a href="#cookies" data-i="ftCook"></a></p>
+  <div class="acts"><button class="btn" id="ckA" type="button" data-i="ckA"></button><button class="btn ghost" id="ckE" type="button" data-i="ckE"></button></div>
+</div>
+
+<script>
+{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const cl=(x,a,b)=>Math.min(b,Math.max(a,x)),seg=(p,a,b)=>cl((p-a)/(b-a),0,1);
+const ease=x=>x<.5?4*x*x*x:1-((-2*x+2)**3)/2;
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+
+/* ---------- copy in five languages ---------- */
+const L={
+en:{c2e:"Ribbon",c2d:"Message card",st1:"Flowers fade by Friday.",st2:"A succulent stays on the desk for years, and so does the name on its box.",info:"Important information",c1a:"2 formats",c1b:"From 25 pieces",c2a:"Occasion design",c2b:"Gold-foil logo",c2c:"Box colour",c3a:"8 weeks",c3b:"Portugal and EU",howH:"How it works",s1l:"Step 1",s2l:"Step 2",s3l:"Step 3",s1t:"Choose the format",s1:"Capsule — one succulent, or Capsule Garden — three. From 25 pieces.",s2t:"Make it yours",s2:"Pick the occasion — holidays, thank-you, events, weddings — and the look: your logo in gold foil, box colour, a card with your message, a ribbon. You approve a proof.",s3t:"We plant and deliver",s3:"Hand-planted in Porto, delivered to your office or to each recipient in the EU — eight weeks from brief.",q7:"How do we care for them?",qa7:"Bright, indirect light and a little water every two to three weeks, once the soil is dry. Every box includes a care card.",phClosed:"Closed",phOpen:"Opened",title:"CAPSULENT — Living gifts",corp:"For companies",faq:"FAQ",order:"Order",menu:"Menu",
+heroT:"A living gift, kept in a box.",heroS:"Hand-planted succulents in bespoke boxes, made to order for companies across Europe.",hint:"Scroll",
+a2:"Closed, an object. Opened, alive.",a3p:"One succulent in a stone-white pot, in a rigid box finished with your mark.",discover:"Discover",
+st:"Flowers fade by Friday. A succulent stays on the desk for years, and so does the name on its box.",
+t1:"From 25 pieces",t2:"Ordered two months ahead",t3:"Personalised for every brief",t4:"Delivery in Portugal and the EU",
+b1:"Three, composed.",b2:"The lid lifts. The landscape stays.",b3p:"Three different succulents in a long lidded box, dressed for your occasion.",
+colH:"The collection",colP:"Two formats. Every box made for one client and one occasion.",c1:"One succulent, one box",c2:"Three succulents, one long box",
+besH:"Made in your name",besP:"Each order starts from a blank box. Your identity is set into the object itself, quietly, the way a jeweller signs a case.",
+r1t:"The mark",r1:"Your logo, foil-blocked or blind-embossed.",r2t:"The colour",r2:"Box and lid matched to your palette.",r3t:"The card",r3:"A printed message: one text for all, or one per recipient.",r4t:"The ribbon",r4:"A band or ribbon in the colour of your choice.",r5t:"The plant",r5:"Varieties chosen for the season and the brief.",r6t:"The delivery",r6:"To one office, or directly to a list of recipients.",
+occH:"For the moments a company remembers",o1:"Corporate holidays",o2:"Client thank-you",o3:"Employee appreciation",o4:"Events and guest favours",o5:"Product launches",o6:"Office openings",o7:"Weddings",o8:"Sympathy",
+prH:"Pre-order, in eight weeks",prP:"From 25 pieces. Place your order at least two months before the date.",
+w1l:"Week 0",w1t:"Brief",w1:"Quantity, format, date and your artwork.",w2l:"Week 1",w2t:"Design",w2:"We lay out the box and card. You approve a digital proof.",w3l:"Week 2",w3t:"Confirmation",w3:"Quote signed, advance paid, production slot reserved.",w4l:"Weeks 3–6",w4t:"Making",w4:"Boxes produced; plants selected and rooted in their pots.",w5l:"Week 7",w5t:"Finishing",w5:"Planting, quality check, packing with a care card.",w6l:"Week 8",w6t:"Delivery",w6:"To your office, or directly to each recipient.",
+caH:"Care, in three lines",ca1t:"Light",ca1:"Bright, indirect light. A desk near a window is ideal.",ca2t:"Water",ca2:"A little every two to three weeks, only once the soil is fully dry. Less in winter.",ca3t:"Avoid",ca3:"Standing water and cold draughts. Every box includes a care card.",
+fqH:"Questions",q1:"What is the minimum order?",qa1:"25 pieces per order. Ask us if you would like to combine both formats.",q2:"How far ahead should we order?",qa2:"At least two months before your date. For December, earlier is wiser: production slots fill quickly.",q3:"Will the plants survive delivery?",qa3:"Succulents store water in their leaves and travel well. Each one is rooted, secured in its pot and packed upright. If a plant arrives damaged, send us a photo within 48 hours and we will replace it.",q4:"Can you deliver to many addresses?",qa4:"Yes. Send us a list of recipients and we will quote delivery for each address.",q5:"Do you deliver outside Portugal?",qa5:"Across the European Union. Outside the EU, plant import rules apply — write to us and we will check your destination.",
+orH:"Begin a pre-order",orP:"Tell us the essentials. We will reply with a proposal and a proof plan.",lEmail:"Email",lPhone:"Phone, WhatsApp, Telegram, SMS",lStudio:"Studio",
+fCo:"Company",fNm:"Your name",fEm:"Email",fPh:"Phone",fFm:"Format",fo3:"Both formats",fo4:"Not sure yet",fQt:"Quantity (from 25)",fDt:"Delivery date (two months ahead or later)",fMs:"Occasion and wishes",fMsP:"Occasion, logo, colours, one address or many",
+fOk:"I agree to the processing of my data under the <a href='#privacy'>Privacy Policy</a>.",fGo:"Prepare my request",fReady:"Your request is ready. Send it by email or WhatsApp — it is not sent until you do.",sMail:"Send by email",sWa:"Send via WhatsApp",sCp:"Copy text",sCpd:"Copied",sCpx:"Select the text above",
+e1:"Please add your company, name and a valid email.",e2:"Pre-orders start from 25 pieces.",e3:"Please choose a date at least two months from today.",e4:"Please accept the Privacy Policy.",sQt:"Quantity",sDt:"Delivery date",tbd:"to be agreed",reqT:"Pre-order request",
+back:"Collection",capD:"A single succulent, hand-planted in a stone-white ceramic pot and set into a rigid lidded box. Lift the lid and the gift is already alive.",garD:"Three contrasting succulents — a rosette, a jade and a striped haworthia — composed as a miniature landscape in a long rigid box. Lift the lid; the garden stays on the desk.",
+sp1:"Inside",sp2:"Box",sp3:"Your mark",sp4:"Minimum",sp5:"Lead time",sp6:"Delivery",sp7:"Price",
+cv1:"One rooted succulent in a ceramic pot, care card, message card",cv2:"Rigid two-piece box with lid, lined in tissue",cv3:"Logo on the box, box colour, card, ribbon",gv1:"Three rooted succulents, care card, message card",gv2:"Long rigid two-piece box with lid",gv3:"Logo on the box, box colour, card, ribbon",
+v4:"25 pieces",v5:"Order two months before your date",v6:"Portugal and the European Union",v7:"On request, by quantity and finish",quote:"Request a quote",
+varH:"Varieties",varP:"Selected by season and availability; we confirm the variety with your proof.",compH:"The composition",compP:"Three contrasting forms, adjusted to the season and confirmed with your proof.",vn1:"Echeveria, blush",vn2:"Echeveria, blue-grey",vn3:"Echeveria, deep green",
+ftTag:"Living gifts for companies. Porto, Portugal.",ftCol:"Collection",ftCon:"Contact",ftLeg:"Legal",ftCare:"Care",ftTerms:"Terms of Sale",ftPriv:"Privacy Policy",ftCook:"Cookie Policy",ftCkSet:"Cookie settings",
+ck:"We use only essential storage to remember your choices. Optional cookies would run only with your consent.",ckA:"Accept",ckE:"Essential only",legalNote:"This document is available in English and Portuguese."},
+pt:{c2e:"Fita",c2d:"Cartão com mensagem",st1:"As flores murcham até sexta-feira.",st2:"Uma suculenta fica na secretária durante anos, tal como o nome na sua caixa.",info:"Informação importante",c1a:"2 formatos",c1b:"Desde 25 unidades",c2a:"Design da ocasião",c2b:"Logótipo dourado",c2c:"Cor da caixa",c3a:"8 semanas",c3b:"Portugal e UE",howH:"Como funciona",s1l:"Passo 1",s2l:"Passo 2",s3l:"Passo 3",s1t:"Escolha o formato",s1:"Capsule — uma suculenta, ou Capsule Garden — três. A partir de 25 unidades.",s2t:"Torne-a sua",s2:"Escolha a ocasião — festas, agradecimentos, eventos, casamentos — e o visual: o seu logótipo em dourado, a cor da caixa, um cartão com a sua mensagem, uma fita. Aprova uma prova.",s3t:"Plantamos e entregamos",s3:"Plantadas à mão no Porto e entregues no seu escritório ou a cada destinatário na UE — oito semanas após o briefing.",q7:"Como cuidar delas?",qa7:"Luz intensa e indireta e um pouco de água a cada duas ou três semanas, quando a terra estiver seca. Cada caixa inclui um cartão de cuidados.",phClosed:"Fechada",phOpen:"Aberta",title:"CAPSULENT — Presentes vivos",corp:"Para empresas",faq:"Perguntas",order:"Encomendar",menu:"Menu",
+heroT:"Um presente vivo, guardado numa caixa.",heroS:"Suculentas plantadas à mão em caixas exclusivas, feitas por encomenda para empresas em toda a Europa.",hint:"Deslize",
+a2:"Fechada, um objeto. Aberta, viva.",a3p:"Uma suculenta num vaso branco-pedra, numa caixa rígida com a sua marca.",discover:"Descobrir",
+st:"As flores murcham até sexta-feira. Uma suculenta fica na secretária durante anos, tal como o nome na sua caixa.",
+t1:"A partir de 25 unidades",t2:"Encomenda com dois meses de antecedência",t3:"Personalizado para cada projeto",t4:"Entrega em Portugal e na UE",
+b1:"Três, em composição.",b2:"A tampa sobe. A paisagem fica.",b3p:"Três suculentas diferentes numa caixa comprida com tampa, vestidas para a sua ocasião.",
+colH:"A coleção",colP:"Dois formatos. Cada caixa feita para um cliente e uma ocasião.",c1:"Uma suculenta, uma caixa",c2:"Três suculentas, uma caixa comprida",
+besH:"Feito em seu nome",besP:"Cada encomenda começa com uma caixa em branco. A sua identidade fica no próprio objeto, discretamente, como um joalheiro assina um estojo.",
+r1t:"A marca",r1:"O seu logótipo, em hot stamping ou relevo seco.",r2t:"A cor",r2:"Caixa e tampa nas cores da sua marca.",r3t:"O cartão",r3:"Uma mensagem impressa: um texto para todos ou um por destinatário.",r4t:"A fita",r4:"Uma cinta ou fita na cor à sua escolha.",r5t:"A planta",r5:"Variedades escolhidas consoante a estação e o projeto.",r6t:"A entrega",r6:"Num só escritório ou diretamente a uma lista de destinatários.",
+occH:"Para os momentos que uma empresa recorda",o1:"Festas de fim de ano",o2:"Agradecimento a clientes",o3:"Reconhecimento de equipas",o4:"Eventos e lembranças para convidados",o5:"Lançamentos de produto",o6:"Inaugurações de escritório",o7:"Casamentos",o8:"Condolências",
+prH:"Pré-encomenda, em oito semanas",prP:"A partir de 25 unidades. Encomende pelo menos dois meses antes da data.",
+w1l:"Semana 0",w1t:"Briefing",w1:"Quantidade, formato, data e a sua arte final.",w2l:"Semana 1",w2t:"Design",w2:"Preparamos a caixa e o cartão. Aprova uma prova digital.",w3l:"Semana 2",w3t:"Confirmação",w3:"Orçamento assinado, adiantamento pago, produção reservada.",w4l:"Semanas 3–6",w4t:"Produção",w4:"Caixas produzidas; plantas selecionadas e enraizadas nos vasos.",w5l:"Semana 7",w5t:"Acabamento",w5:"Plantação, controlo de qualidade, embalagem com cartão de cuidados.",w6l:"Semana 8",w6t:"Entrega",w6:"No seu escritório ou diretamente a cada destinatário.",
+caH:"Cuidados, em três linhas",ca1t:"Luz",ca1:"Luz intensa e indireta. Uma secretária junto a uma janela é ideal.",ca2t:"Água",ca2:"Um pouco a cada duas ou três semanas, só quando a terra estiver totalmente seca. Menos no inverno.",ca3t:"Evitar",ca3:"Água parada e correntes de ar frio. Cada caixa inclui um cartão de cuidados.",
+fqH:"Perguntas",q1:"Qual é a encomenda mínima?",qa1:"25 unidades por encomenda. Pergunte-nos se quiser combinar os dois formatos.",q2:"Com quanta antecedência devemos encomendar?",qa2:"Pelo menos dois meses antes da data. Para dezembro, convém antecipar: as vagas de produção esgotam depressa.",q3:"As plantas resistem à entrega?",qa3:"As suculentas guardam água nas folhas e viajam bem. Cada uma vai enraizada, fixa no vaso e embalada na vertical. Se uma planta chegar danificada, envie-nos uma foto em 48 horas e substituímo-la.",q4:"Podem entregar em várias moradas?",qa4:"Sim. Envie-nos a lista de destinatários e orçamentamos a entrega para cada morada.",q5:"Entregam fora de Portugal?",qa5:"Em toda a União Europeia. Fora da UE aplicam-se regras de importação de plantas — escreva-nos e verificamos o seu destino.",
+orH:"Iniciar uma pré-encomenda",orP:"Diga-nos o essencial. Respondemos com uma proposta e um plano de provas.",lEmail:"Email",lPhone:"Telefone, WhatsApp, Telegram, SMS",lStudio:"Estúdio",
+fCo:"Empresa",fNm:"O seu nome",fEm:"Email",fPh:"Telefone",fFm:"Formato",fo3:"Ambos os formatos",fo4:"Ainda não sei",fQt:"Quantidade (a partir de 25)",fDt:"Data de entrega (dois meses ou mais)",fMs:"Ocasião e preferências",fMsP:"Ocasião, logótipo, cores, uma ou várias moradas",
+fOk:"Aceito o tratamento dos meus dados nos termos da <a href='#privacy'>Política de Privacidade</a>.",fGo:"Preparar o pedido",fReady:"O seu pedido está pronto. Envie-o por email ou WhatsApp — só é enviado quando o fizer.",sMail:"Enviar por email",sWa:"Enviar por WhatsApp",sCp:"Copiar texto",sCpd:"Copiado",sCpx:"Selecione o texto acima",
+e1:"Indique a empresa, o nome e um email válido.",e2:"As pré-encomendas começam nas 25 unidades.",e3:"Escolha uma data com pelo menos dois meses de antecedência.",e4:"Aceite a Política de Privacidade.",sQt:"Quantidade",sDt:"Data de entrega",tbd:"a combinar",reqT:"Pedido de pré-encomenda",
+back:"Coleção",capD:"Uma suculenta plantada à mão num vaso de cerâmica branco-pedra, numa caixa rígida com tampa. Levante a tampa e o presente já está vivo.",garD:"Três suculentas em contraste — uma roseta, uma jade e uma haworthia listrada — compostas como uma paisagem em miniatura numa caixa rígida comprida. Levante a tampa; o jardim fica na secretária.",
+sp1:"Conteúdo",sp2:"Caixa",sp3:"A sua marca",sp4:"Mínimo",sp5:"Prazo",sp6:"Entrega",sp7:"Preço",
+cv1:"Uma suculenta enraizada em vaso de cerâmica, cartão de cuidados, cartão de mensagem",cv2:"Caixa rígida de duas peças com tampa, forrada a papel de seda",cv3:"Logótipo na caixa, cor da caixa, cartão, fita",gv1:"Três suculentas enraizadas, cartão de cuidados, cartão de mensagem",gv2:"Caixa rígida comprida de duas peças com tampa",gv3:"Logótipo na caixa, cor da caixa, cartão, fita",
+v4:"25 unidades",v5:"Encomende dois meses antes da data",v6:"Portugal e União Europeia",v7:"Sob consulta, consoante quantidade e acabamento",quote:"Pedir orçamento",
+varH:"Variedades",varP:"Escolhidas consoante a estação e a disponibilidade; confirmamos a variedade com a prova.",compH:"A composição",compP:"Três formas em contraste, ajustadas à estação e confirmadas com a prova.",vn1:"Echeveria, rosada",vn2:"Echeveria, azul-acinzentada",vn3:"Echeveria, verde profundo",
+ftTag:"Presentes vivos para empresas. Porto, Portugal.",ftCol:"Coleção",ftCon:"Contacto",ftLeg:"Legal",ftCare:"Cuidados",ftTerms:"Condições de Venda",ftPriv:"Política de Privacidade",ftCook:"Política de Cookies",ftCkSet:"Definições de cookies",
+ck:"Usamos apenas armazenamento essencial para guardar as suas escolhas. Cookies opcionais só funcionariam com o seu consentimento.",ckA:"Aceitar",ckE:"Só essenciais",legalNote:"Este documento está disponível em inglês e português."},
+fr:{c2e:"Ruban",c2d:"Carte message",st1:"Les fleurs fanent avant vendredi.",st2:"Une succulente reste des années sur le bureau, tout comme le nom sur son coffret.",info:"Informations importantes",c1a:"2 formats",c1b:"Dès 25 pièces",c2a:"Design de l'occasion",c2b:"Logo doré",c2c:"Couleur du coffret",c3a:"8 semaines",c3b:"Portugal et UE",howH:"Comment ça marche",s1l:"Étape 1",s2l:"Étape 2",s3l:"Étape 3",s1t:"Choisissez le format",s1:"Capsule — une succulente, ou Capsule Garden — trois. À partir de 25 pièces.",s2t:"Personnalisez-la",s2:"Choisissez l'occasion — fêtes, remerciements, événements, mariages — et le style : votre logo en dorure, la couleur du coffret, une carte avec votre message, un ruban. Vous validez une épreuve.",s3t:"Nous plantons et livrons",s3:"Plantées à la main à Porto, livrées à votre bureau ou à chaque destinataire dans l'UE — huit semaines après le brief.",q7:"Comment les entretenir ?",qa7:"Lumière vive et indirecte, et un peu d'eau toutes les deux à trois semaines, quand la terre est sèche. Chaque coffret contient une carte d'entretien.",phClosed:"Fermé",phOpen:"Ouvert",title:"CAPSULENT — Cadeaux vivants",corp:"Entreprises",faq:"FAQ",order:"Commander",menu:"Menu",
+heroT:"Un cadeau vivant, gardé dans un écrin.",heroS:"Des succulentes plantées à la main dans des coffrets sur mesure, réalisés sur commande pour les entreprises partout en Europe.",hint:"Défiler",
+a2:"Fermé, un objet. Ouvert, vivant.",a3p:"Une succulente dans un pot blanc pierre, dans un coffret rigide à votre marque.",discover:"Découvrir",
+st:"Les fleurs fanent avant vendredi. Une succulente reste des années sur le bureau, tout comme le nom sur son coffret.",
+t1:"À partir de 25 pièces",t2:"Commande deux mois à l'avance",t3:"Personnalisé pour chaque projet",t4:"Livraison au Portugal et dans l'UE",
+b1:"Trois, en composition.",b2:"Le couvercle se lève. Le paysage reste.",b3p:"Trois succulentes différentes dans un long coffret à couvercle, habillées pour votre occasion.",
+colH:"La collection",colP:"Deux formats. Chaque coffret conçu pour un client et une occasion.",c1:"Une succulente, un coffret",c2:"Trois succulentes, un long coffret",
+besH:"À votre nom",besP:"Chaque commande commence par un coffret vierge. Votre identité s'inscrit dans l'objet lui-même, discrètement, comme un joaillier signe un écrin.",
+r1t:"Le marquage",r1:"Votre logo, en dorure à chaud ou en gaufrage à sec.",r2t:"La couleur",r2:"Coffret et couvercle assortis à votre palette.",r3t:"La carte",r3:"Un message imprimé : un texte pour tous ou un par destinataire.",r4t:"Le ruban",r4:"Une bande ou un ruban dans la couleur de votre choix.",r5t:"La plante",r5:"Des variétés choisies selon la saison et le projet.",r6t:"La livraison",r6:"À un seul bureau ou directement à une liste de destinataires.",
+occH:"Pour les moments dont une entreprise se souvient",o1:"Fêtes de fin d'année",o2:"Remerciements clients",o3:"Reconnaissance des équipes",o4:"Événements et cadeaux d'invités",o5:"Lancements de produits",o6:"Inaugurations de bureaux",o7:"Mariages",o8:"Condoléances",
+prH:"Précommande, en huit semaines",prP:"À partir de 25 pièces. Commandez au moins deux mois avant la date.",
+w1l:"Semaine 0",w1t:"Brief",w1:"Quantité, format, date et vos fichiers.",w2l:"Semaine 1",w2t:"Design",w2:"Nous concevons le coffret et la carte. Vous validez une épreuve numérique.",w3l:"Semaine 2",w3t:"Confirmation",w3:"Devis signé, acompte versé, créneau de production réservé.",w4l:"Semaines 3–6",w4t:"Fabrication",w4:"Coffrets produits ; plantes sélectionnées et enracinées dans leurs pots.",w5l:"Semaine 7",w5t:"Finitions",w5:"Plantation, contrôle qualité, emballage avec carte d'entretien.",w6l:"Semaine 8",w6t:"Livraison",w6:"À votre bureau ou directement à chaque destinataire.",
+caH:"L'entretien, en trois lignes",ca1t:"Lumière",ca1:"Lumière vive et indirecte. Un bureau près d'une fenêtre est idéal.",ca2t:"Arrosage",ca2:"Un peu toutes les deux à trois semaines, uniquement quand la terre est bien sèche. Moins en hiver.",ca3t:"À éviter",ca3:"L'eau stagnante et les courants d'air froid. Chaque coffret contient une carte d'entretien.",
+fqH:"Questions",q1:"Quelle est la commande minimale ?",qa1:"25 pièces par commande. Demandez-nous si vous souhaitez combiner les deux formats.",q2:"Combien de temps à l'avance commander ?",qa2:"Au moins deux mois avant votre date. Pour décembre, mieux vaut anticiper : les créneaux de production partent vite.",q3:"Les plantes supportent-elles la livraison ?",qa3:"Les succulentes stockent l'eau dans leurs feuilles et voyagent bien. Chacune est enracinée, fixée dans son pot et emballée debout. Si une plante arrive abîmée, envoyez-nous une photo sous 48 heures et nous la remplaçons.",q4:"Pouvez-vous livrer à plusieurs adresses ?",qa4:"Oui. Envoyez-nous la liste des destinataires et nous chiffrons la livraison pour chaque adresse.",q5:"Livrez-vous hors du Portugal ?",qa5:"Dans toute l'Union européenne. Hors UE, des règles d'importation des végétaux s'appliquent — écrivez-nous et nous vérifierons votre destination.",
+orH:"Commencer une précommande",orP:"Dites-nous l'essentiel. Nous revenons vers vous avec une proposition et un plan d'épreuves.",lEmail:"Email",lPhone:"Téléphone, WhatsApp, Telegram, SMS",lStudio:"Atelier",
+fCo:"Entreprise",fNm:"Votre nom",fEm:"Email",fPh:"Téléphone",fFm:"Format",fo3:"Les deux formats",fo4:"Pas encore décidé",fQt:"Quantité (à partir de 25)",fDt:"Date de livraison (dans deux mois ou plus)",fMs:"Occasion et souhaits",fMsP:"Occasion, logo, couleurs, une ou plusieurs adresses",
+fOk:"J'accepte le traitement de mes données conformément à la <a href='#privacy'>Politique de confidentialité</a>.",fGo:"Préparer ma demande",fReady:"Votre demande est prête. Envoyez-la par email ou WhatsApp — elle n'est envoyée que lorsque vous le faites.",sMail:"Envoyer par email",sWa:"Envoyer via WhatsApp",sCp:"Copier le texte",sCpd:"Copié",sCpx:"Sélectionnez le texte ci-dessus",
+e1:"Indiquez votre entreprise, votre nom et un email valide.",e2:"Les précommandes commencent à 25 pièces.",e3:"Choisissez une date au moins deux mois après aujourd'hui.",e4:"Veuillez accepter la Politique de confidentialité.",sQt:"Quantité",sDt:"Date de livraison",tbd:"à convenir",reqT:"Demande de précommande",
+back:"Collection",capD:"Une succulente plantée à la main dans un pot en céramique blanc pierre, posée dans un coffret rigide à couvercle. Soulevez le couvercle : le cadeau est déjà vivant.",garD:"Trois succulentes contrastées — une rosette, un jade et une haworthia rayée — composées en paysage miniature dans un long coffret rigide. Soulevez le couvercle ; le jardin reste sur le bureau.",
+sp1:"Contenu",sp2:"Coffret",sp3:"Votre marque",sp4:"Minimum",sp5:"Délai",sp6:"Livraison",sp7:"Prix",
+cv1:"Une succulente enracinée en pot céramique, carte d'entretien, carte message",cv2:"Coffret rigide deux pièces à couvercle, garni de papier de soie",cv3:"Logo sur le coffret, couleur du coffret, carte, ruban",gv1:"Trois succulentes enracinées, carte d'entretien, carte message",gv2:"Long coffret rigide deux pièces à couvercle",gv3:"Logo sur le coffret, couleur du coffret, carte, ruban",
+v4:"25 pièces",v5:"Commande deux mois avant votre date",v6:"Portugal et Union européenne",v7:"Sur demande, selon quantité et finitions",quote:"Demander un devis",
+varH:"Variétés",varP:"Choisies selon la saison et la disponibilité ; nous confirmons la variété avec l'épreuve.",compH:"La composition",compP:"Trois formes contrastées, adaptées à la saison et confirmées avec l'épreuve.",vn1:"Echeveria, rosée",vn2:"Echeveria, bleu-gris",vn3:"Echeveria, vert profond",
+ftTag:"Cadeaux vivants pour entreprises. Porto, Portugal.",ftCol:"Collection",ftCon:"Contact",ftLeg:"Mentions légales",ftCare:"Entretien",ftTerms:"Conditions de vente",ftPriv:"Politique de confidentialité",ftCook:"Politique de cookies",ftCkSet:"Paramètres des cookies",
+ck:"Nous utilisons uniquement un stockage essentiel pour mémoriser vos choix. Les cookies optionnels ne fonctionneraient qu'avec votre consentement.",ckA:"Accepter",ckE:"Essentiels uniquement",legalNote:"Ce document est disponible en anglais et en portugais."},
+de:{c2e:"Band",c2d:"Grußkarte",st1:"Blumen welken bis Freitag.",st2:"Eine Sukkulente bleibt jahrelang auf dem Schreibtisch – und mit ihr der Name auf der Box.",info:"Wichtige Informationen",c1a:"2 Formate",c1b:"Ab 25 Stück",c2a:"Anlass-Design",c2b:"Logo in Gold",c2c:"Boxfarbe",c3a:"8 Wochen",c3b:"Portugal und EU",howH:"So funktioniert es",s1l:"Schritt 1",s2l:"Schritt 2",s3l:"Schritt 3",s1t:"Format wählen",s1:"Capsule – eine Sukkulente, oder Capsule Garden – drei. Ab 25 Stück.",s2t:"Machen Sie sie zu Ihrer",s2:"Wählen Sie den Anlass – Feiertage, Dank, Events, Hochzeiten – und den Look: Ihr Logo in Goldprägung, Boxfarbe, eine Karte mit Ihrer Botschaft, ein Band. Sie geben einen Proof frei.",s3t:"Wir pflanzen und liefern",s3:"Von Hand in Porto gepflanzt, geliefert in Ihr Büro oder an jeden Empfänger in der EU – acht Wochen nach dem Briefing.",q7:"Wie pflegt man sie?",qa7:"Helles, indirektes Licht und alle zwei bis drei Wochen etwas Wasser, wenn die Erde trocken ist. Jeder Box liegt eine Pflegekarte bei.",phClosed:"Geschlossen",phOpen:"Geöffnet",title:"CAPSULENT — Lebendige Geschenke",corp:"Für Unternehmen",faq:"FAQ",order:"Bestellen",menu:"Menü",
+heroT:"Ein lebendiges Geschenk, in einer Box bewahrt.",heroS:"Handgepflanzte Sukkulenten in maßgefertigten Boxen, auf Bestellung für Unternehmen in ganz Europa.",hint:"Scrollen",
+a2:"Geschlossen ein Objekt. Geöffnet lebendig.",a3p:"Eine Sukkulente im steinweißen Topf, in einer festen Box mit Ihrem Zeichen.",discover:"Entdecken",
+st:"Blumen welken bis Freitag. Eine Sukkulente bleibt jahrelang auf dem Schreibtisch – und mit ihr der Name auf der Box.",
+t1:"Ab 25 Stück",t2:"Bestellung zwei Monate im Voraus",t3:"Für jedes Briefing personalisiert",t4:"Lieferung in Portugal und der EU",
+b1:"Drei, komponiert.",b2:"Der Deckel hebt sich. Die Landschaft bleibt.",b3p:"Drei verschiedene Sukkulenten in einer langen Deckelbox, gestaltet für Ihren Anlass.",
+colH:"Die Kollektion",colP:"Zwei Formate. Jede Box für einen Kunden und einen Anlass gefertigt.",c1:"Eine Sukkulente, eine Box",c2:"Drei Sukkulenten, eine lange Box",
+besH:"In Ihrem Namen gefertigt",besP:"Jede Bestellung beginnt mit einer leeren Box. Ihre Identität wird Teil des Objekts – leise, so wie ein Juwelier ein Etui signiert.",
+r1t:"Die Prägung",r1:"Ihr Logo, heißgeprägt oder blindgeprägt.",r2t:"Die Farbe",r2:"Box und Deckel in Ihrer Farbpalette.",r3t:"Die Karte",r3:"Eine gedruckte Botschaft: ein Text für alle oder einer pro Empfänger.",r4t:"Das Band",r4:"Eine Banderole oder ein Band in der Farbe Ihrer Wahl.",r5t:"Die Pflanze",r5:"Sorten passend zur Saison und zum Briefing.",r6t:"Die Lieferung",r6:"An ein Büro oder direkt an eine Empfängerliste.",
+occH:"Für Momente, an die sich ein Unternehmen erinnert",o1:"Firmenfeiern zum Jahresende",o2:"Dank an Kunden",o3:"Mitarbeiterwertschätzung",o4:"Events und Gastgeschenke",o5:"Produkteinführungen",o6:"Büroeröffnungen",o7:"Hochzeiten",o8:"Anteilnahme",
+prH:"Vorbestellung, in acht Wochen",prP:"Ab 25 Stück. Bestellen Sie mindestens zwei Monate vor dem Termin.",
+w1l:"Woche 0",w1t:"Briefing",w1:"Menge, Format, Termin und Ihre Druckdaten.",w2l:"Woche 1",w2t:"Design",w2:"Wir gestalten Box und Karte. Sie geben einen digitalen Proof frei.",w3l:"Woche 2",w3t:"Bestätigung",w3:"Angebot unterzeichnet, Anzahlung geleistet, Produktionsplatz reserviert.",w4l:"Wochen 3–6",w4t:"Fertigung",w4:"Boxen produziert; Pflanzen ausgewählt und in ihren Töpfen bewurzelt.",w5l:"Woche 7",w5t:"Finish",w5:"Bepflanzung, Qualitätskontrolle, Verpackung mit Pflegekarte.",w6l:"Woche 8",w6t:"Lieferung",w6:"In Ihr Büro oder direkt an jeden Empfänger.",
+caH:"Pflege, in drei Zeilen",ca1t:"Licht",ca1:"Hell und indirekt. Ein Schreibtisch am Fenster ist ideal.",ca2t:"Wasser",ca2:"Alle zwei bis drei Wochen ein wenig, erst wenn die Erde ganz trocken ist. Im Winter weniger.",ca3t:"Vermeiden",ca3:"Staunässe und kalte Zugluft. Jeder Box liegt eine Pflegekarte bei.",
+fqH:"Fragen",q1:"Was ist die Mindestbestellmenge?",qa1:"25 Stück pro Bestellung. Fragen Sie uns, wenn Sie beide Formate kombinieren möchten.",q2:"Wie früh sollten wir bestellen?",qa2:"Mindestens zwei Monate vor Ihrem Termin. Für Dezember lieber früher: Die Produktionsplätze sind schnell vergeben.",q3:"Überstehen die Pflanzen den Versand?",qa3:"Sukkulenten speichern Wasser in ihren Blättern und reisen gut. Jede ist bewurzelt, im Topf fixiert und aufrecht verpackt. Kommt eine Pflanze beschädigt an, senden Sie uns innerhalb von 48 Stunden ein Foto – wir ersetzen sie.",q4:"Liefern Sie an viele Adressen?",qa4:"Ja. Senden Sie uns eine Empfängerliste, und wir kalkulieren die Lieferung für jede Adresse.",q5:"Liefern Sie außerhalb Portugals?",qa5:"In die gesamte Europäische Union. Außerhalb der EU gelten Einfuhrregeln für Pflanzen – schreiben Sie uns, wir prüfen Ihr Ziel.",
+orH:"Vorbestellung beginnen",orP:"Nennen Sie uns das Wesentliche. Wir antworten mit einem Angebot und einem Proof-Plan.",lEmail:"E-Mail",lPhone:"Telefon, WhatsApp, Telegram, SMS",lStudio:"Studio",
+fCo:"Unternehmen",fNm:"Ihr Name",fEm:"E-Mail",fPh:"Telefon",fFm:"Format",fo3:"Beide Formate",fo4:"Noch offen",fQt:"Menge (ab 25)",fDt:"Liefertermin (frühestens in zwei Monaten)",fMs:"Anlass und Wünsche",fMsP:"Anlass, Logo, Farben, eine oder mehrere Adressen",
+fOk:"Ich stimme der Verarbeitung meiner Daten gemäß der <a href='#privacy'>Datenschutzerklärung</a> zu.",fGo:"Anfrage vorbereiten",fReady:"Ihre Anfrage ist bereit. Senden Sie sie per E-Mail oder WhatsApp – erst dann wird sie verschickt.",sMail:"Per E-Mail senden",sWa:"Per WhatsApp senden",sCp:"Text kopieren",sCpd:"Kopiert",sCpx:"Text oben markieren",
+e1:"Bitte Unternehmen, Name und eine gültige E-Mail angeben.",e2:"Vorbestellungen beginnen ab 25 Stück.",e3:"Bitte ein Datum mindestens zwei Monate ab heute wählen.",e4:"Bitte stimmen Sie der Datenschutzerklärung zu.",sQt:"Menge",sDt:"Liefertermin",tbd:"nach Absprache",reqT:"Vorbestellungsanfrage",
+back:"Kollektion",capD:"Eine einzelne Sukkulente, von Hand in einen steinweißen Keramiktopf gepflanzt und in eine feste Deckelbox gesetzt. Heben Sie den Deckel – das Geschenk lebt bereits.",garD:"Drei kontrastierende Sukkulenten – eine Rosette, ein Geldbaum und eine gestreifte Haworthia – komponiert als Miniaturlandschaft in einer langen, festen Box. Heben Sie den Deckel; der Garten bleibt auf dem Schreibtisch.",
+sp1:"Inhalt",sp2:"Box",sp3:"Ihr Zeichen",sp4:"Minimum",sp5:"Vorlaufzeit",sp6:"Lieferung",sp7:"Preis",
+cv1:"Eine bewurzelte Sukkulente im Keramiktopf, Pflegekarte, Grußkarte",cv2:"Feste zweiteilige Deckelbox, mit Seidenpapier ausgelegt",cv3:"Logo auf der Box, Boxfarbe, Karte, Band",gv1:"Drei bewurzelte Sukkulenten, Pflegekarte, Grußkarte",gv2:"Lange, feste zweiteilige Deckelbox",gv3:"Logo auf der Box, Boxfarbe, Karte, Band",
+v4:"25 Stück",v5:"Bestellung zwei Monate vor Ihrem Termin",v6:"Portugal und Europäische Union",v7:"Auf Anfrage, je nach Menge und Veredelung",quote:"Angebot anfragen",
+varH:"Sorten",varP:"Nach Saison und Verfügbarkeit ausgewählt; wir bestätigen die Sorte mit Ihrem Proof.",compH:"Die Komposition",compP:"Drei kontrastierende Formen, der Saison angepasst und mit Ihrem Proof bestätigt.",vn1:"Echeverie, zartrosa",vn2:"Echeverie, blaugrau",vn3:"Echeverie, tiefgrün",
+ftTag:"Lebendige Geschenke für Unternehmen. Porto, Portugal.",ftCol:"Kollektion",ftCon:"Kontakt",ftLeg:"Rechtliches",ftCare:"Pflege",ftTerms:"Verkaufsbedingungen",ftPriv:"Datenschutzerklärung",ftCook:"Cookie-Richtlinie",ftCkSet:"Cookie-Einstellungen",
+ck:"Wir nutzen nur notwendigen Speicher, um Ihre Auswahl zu merken. Optionale Cookies liefen nur mit Ihrer Einwilligung.",ckA:"Akzeptieren",ckE:"Nur notwendige",legalNote:"Dieses Dokument ist auf Englisch und Portugiesisch verfügbar."},
+it:{c2e:"Nastro",c2d:"Biglietto con messaggio",st1:"I fiori appassiscono entro venerdì.",st2:"Una succulenta resta sulla scrivania per anni, e con lei il nome sulla sua scatola.",info:"Informazioni importanti",c1a:"2 formati",c1b:"Da 25 pezzi",c2a:"Design per l'occasione",c2b:"Logo in oro",c2c:"Colore della scatola",c3a:"8 settimane",c3b:"Portogallo e UE",howH:"Come funziona",s1l:"Passo 1",s2l:"Passo 2",s3l:"Passo 3",s1t:"Scegliete il formato",s1:"Capsule — una succulenta, o Capsule Garden — tre. Da 25 pezzi.",s2t:"Rendetela vostra",s2:"Scegliete l'occasione — feste, ringraziamenti, eventi, matrimoni — e lo stile: il vostro logo in oro, il colore della scatola, un biglietto con il vostro messaggio, un nastro. Approvate una bozza.",s3t:"Piantiamo e consegniamo",s3:"Piantate a mano a Porto, consegnate nel vostro ufficio o a ogni destinatario nell'UE — otto settimane dal brief.",q7:"Come curarle?",qa7:"Luce intensa e indiretta e poca acqua ogni due o tre settimane, quando il terriccio è asciutto. Ogni scatola include una scheda di cura.",phClosed:"Chiusa",phOpen:"Aperta",title:"CAPSULENT — Regali vivi",corp:"Per le aziende",faq:"FAQ",order:"Ordina",menu:"Menu",
+heroT:"Un regalo vivo, custodito in una scatola.",heroS:"Succulente piantate a mano in scatole su misura, realizzate su ordinazione per aziende in tutta Europa.",hint:"Scorri",
+a2:"Chiusa, un oggetto. Aperta, viva.",a3p:"Una succulenta in un vaso bianco pietra, in una scatola rigida con il vostro segno.",discover:"Scopri",
+st:"I fiori appassiscono entro venerdì. Una succulenta resta sulla scrivania per anni, e con lei il nome sulla sua scatola.",
+t1:"Da 25 pezzi",t2:"Ordine con due mesi di anticipo",t3:"Personalizzato per ogni progetto",t4:"Consegna in Portogallo e nell'UE",
+b1:"Tre, in composizione.",b2:"Il coperchio si alza. Il paesaggio resta.",b3p:"Tre succulente diverse in una scatola lunga con coperchio, vestite per la vostra occasione.",
+colH:"La collezione",colP:"Due formati. Ogni scatola realizzata per un cliente e un'occasione.",c1:"Una succulenta, una scatola",c2:"Tre succulente, una scatola lunga",
+besH:"Fatto a vostro nome",besP:"Ogni ordine parte da una scatola bianca. La vostra identità entra nell'oggetto stesso, con discrezione, come un gioielliere firma un astuccio.",
+r1t:"Il marchio",r1:"Il vostro logo, in stampa a caldo o a secco.",r2t:"Il colore",r2:"Scatola e coperchio nei colori della vostra palette.",r3t:"Il biglietto",r3:"Un messaggio stampato: un testo per tutti o uno per destinatario.",r4t:"Il nastro",r4:"Una fascia o un nastro nel colore che preferite.",r5t:"La pianta",r5:"Varietà scelte secondo la stagione e il progetto.",r6t:"La consegna",r6:"In un unico ufficio o direttamente a un elenco di destinatari.",
+occH:"Per i momenti che un'azienda ricorda",o1:"Feste di fine anno",o2:"Ringraziamenti ai clienti",o3:"Riconoscimento del team",o4:"Eventi e omaggi per gli ospiti",o5:"Lanci di prodotto",o6:"Inaugurazioni di uffici",o7:"Matrimoni",o8:"Condoglianze",
+prH:"Preordine, in otto settimane",prP:"Da 25 pezzi. Ordinate almeno due mesi prima della data.",
+w1l:"Settimana 0",w1t:"Brief",w1:"Quantità, formato, data e i vostri file grafici.",w2l:"Settimana 1",w2t:"Design",w2:"Impaginiamo scatola e biglietto. Approvate una bozza digitale.",w3l:"Settimana 2",w3t:"Conferma",w3:"Preventivo firmato, acconto versato, slot di produzione riservato.",w4l:"Settimane 3–6",w4t:"Produzione",w4:"Scatole prodotte; piante selezionate e radicate nei vasi.",w5l:"Settimana 7",w5t:"Finitura",w5:"Piantumazione, controllo qualità, imballaggio con scheda di cura.",w6l:"Settimana 8",w6t:"Consegna",w6:"Nel vostro ufficio o direttamente a ogni destinatario.",
+caH:"La cura, in tre righe",ca1t:"Luce",ca1:"Luce intensa e indiretta. Una scrivania vicino alla finestra è ideale.",ca2t:"Acqua",ca2:"Poca, ogni due o tre settimane, solo quando il terriccio è completamente asciutto. Meno d'inverno.",ca3t:"Da evitare",ca3:"Ristagni d'acqua e correnti fredde. Ogni scatola include una scheda di cura.",
+fqH:"Domande",q1:"Qual è l'ordine minimo?",qa1:"25 pezzi per ordine. Chiedeteci se volete combinare i due formati.",q2:"Con quanto anticipo ordinare?",qa2:"Almeno due mesi prima della data. Per dicembre conviene anticipare: gli slot di produzione si esauriscono presto.",q3:"Le piante resistono alla spedizione?",qa3:"Le succulente trattengono l'acqua nelle foglie e viaggiano bene. Ognuna è radicata, fissata nel vaso e imballata in verticale. Se una pianta arriva danneggiata, inviateci una foto entro 48 ore e la sostituiamo.",q4:"Potete consegnare a molti indirizzi?",qa4:"Sì. Inviateci l'elenco dei destinatari e quotiamo la consegna per ogni indirizzo.",q5:"Consegnate fuori dal Portogallo?",qa5:"In tutta l'Unione europea. Fuori dall'UE valgono regole di importazione per le piante — scriveteci e verifichiamo la destinazione.",
+orH:"Iniziare un preordine",orP:"Diteci l'essenziale. Rispondiamo con una proposta e un piano di bozze.",lEmail:"Email",lPhone:"Telefono, WhatsApp, Telegram, SMS",lStudio:"Studio",
+fCo:"Azienda",fNm:"Il vostro nome",fEm:"Email",fPh:"Telefono",fFm:"Formato",fo3:"Entrambi i formati",fo4:"Non ancora deciso",fQt:"Quantità (da 25)",fDt:"Data di consegna (tra due mesi o più)",fMs:"Occasione e desideri",fMsP:"Occasione, logo, colori, uno o più indirizzi",
+fOk:"Acconsento al trattamento dei miei dati secondo l'<a href='#privacy'>Informativa sulla privacy</a>.",fGo:"Prepara la richiesta",fReady:"La vostra richiesta è pronta. Inviatela via email o WhatsApp — parte solo quando lo fate voi.",sMail:"Invia via email",sWa:"Invia via WhatsApp",sCp:"Copia il testo",sCpd:"Copiato",sCpx:"Selezionate il testo sopra",
+e1:"Indicate azienda, nome e un'email valida.",e2:"I preordini partono da 25 pezzi.",e3:"Scegliete una data ad almeno due mesi da oggi.",e4:"Accettate l'Informativa sulla privacy.",sQt:"Quantità",sDt:"Data di consegna",tbd:"da concordare",reqT:"Richiesta di preordine",
+back:"Collezione",capD:"Una sola succulenta, piantata a mano in un vaso di ceramica bianco pietra e inserita in una scatola rigida con coperchio. Sollevate il coperchio: il regalo è già vivo.",garD:"Tre succulente in contrasto — una rosetta, una giada e una haworthia striata — composte come un paesaggio in miniatura in una lunga scatola rigida. Sollevate il coperchio; il giardino resta sulla scrivania.",
+sp1:"Contenuto",sp2:"Scatola",sp3:"Il vostro segno",sp4:"Minimo",sp5:"Tempi",sp6:"Consegna",sp7:"Prezzo",
+cv1:"Una succulenta radicata in vaso di ceramica, scheda di cura, biglietto",cv2:"Scatola rigida in due pezzi con coperchio, foderata in carta velina",cv3:"Logo sulla scatola, colore della scatola, biglietto, nastro",gv1:"Tre succulente radicate, scheda di cura, biglietto",gv2:"Scatola rigida lunga in due pezzi con coperchio",gv3:"Logo sulla scatola, colore della scatola, biglietto, nastro",
+v4:"25 pezzi",v5:"Ordine due mesi prima della data",v6:"Portogallo e Unione europea",v7:"Su richiesta, in base a quantità e finiture",quote:"Richiedi un preventivo",
+varH:"Varietà",varP:"Scelte secondo stagione e disponibilità; confermiamo la varietà con la bozza.",compH:"La composizione",compP:"Tre forme in contrasto, adattate alla stagione e confermate con la bozza.",vn1:"Echeveria, rosata",vn2:"Echeveria, grigio-azzurra",vn3:"Echeveria, verde intenso",
+ftTag:"Regali vivi per le aziende. Porto, Portogallo.",ftCol:"Collezione",ftCon:"Contatti",ftLeg:"Note legali",ftCare:"Cura",ftTerms:"Condizioni di vendita",ftPriv:"Informativa sulla privacy",ftCook:"Cookie policy",ftCkSet:"Impostazioni cookie",
+ck:"Usiamo solo una memorizzazione essenziale per ricordare le vostre scelte. I cookie facoltativi funzionerebbero solo con il vostro consenso.",ckA:"Accetta",ckE:"Solo essenziali",legalNote:"Questo documento è disponibile in inglese e portoghese."}
+};
+const LANGS=['en','pt','fr','de','it'];
+const TZ={'Europe/Lisbon':'pt','Atlantic/Madeira':'pt','Atlantic/Azores':'pt','Europe/Paris':'fr','Europe/Monaco':'fr','Europe/Luxembourg':'fr','Europe/Brussels':'fr','Europe/Berlin':'de','Europe/Vienna':'de','Europe/Zurich':'de','Europe/Busingen':'de','Europe/Vaduz':'de','Europe/Rome':'it','Europe/San_Marino':'it','Europe/Vatican':'it'};
+function detect(){
+  const s=store.get('capsulent-lang');if(LANGS.includes(s))return s;
+  let tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}
+  if(TZ[tz])return TZ[tz];
+  for(const l of navigator.languages||[navigator.language||'en']){const c=(l||'').slice(0,2).toLowerCase();if(LANGS.includes(c))return c}
+  return 'en';
+}
+let lang=detect(),D=L.en;
+const NAMES={en:'English',pt:'Português',fr:'Français',de:'Deutsch',it:'Italiano'};
+$$('.langs').forEach(w=>w.innerHTML=`<button type="button" class="lcur" aria-haspopup="true" aria-expanded="false">EN</button><ul class="lmenu">${LANGS.map(l=>`<li><button type="button" data-l="${l}">${NAMES[l]}<small>${l.toUpperCase()}</small></button></li>`).join('')}</ul>`);
+const closeL=()=>$$('.langs').forEach(w=>{w.classList.remove('open');w.querySelector('.lcur').setAttribute('aria-expanded','false')});
+function apply(l){
+  lang=l;D=Object.assign({},L.en,L[l]);
+  $$('[data-i]').forEach(e=>{const v=D[e.dataset.i];if(v!==undefined)e.innerHTML=v});
+  $$('[data-ip]').forEach(e=>e.placeholder=D[e.dataset.ip]||'');
+  document.documentElement.lang=l;document.title=D.title;
+  $$('.lcur').forEach(b=>b.textContent=l.toUpperCase());$$('.lmenu button').forEach(b=>b.setAttribute('aria-current',String(b.dataset.l===l)));
+  $$('.lg-en').forEach(a=>a.hidden=l==='pt');$$('.lg-pt').forEach(a=>a.hidden=l!=='pt');
+  $$('.lg-note').forEach(n=>n.hidden=l==='en'||l==='pt');
+}
+document.addEventListener('click',e=>{
+  const c=e.target.closest('.lcur');if(c){const w=c.parentElement,o=!w.classList.contains('open');closeL();if(o){w.classList.add('open');c.setAttribute('aria-expanded','true')}return}
+  const b=e.target.closest('.lmenu button');if(b){store.set('capsulent-lang',b.dataset.l);apply(b.dataset.l);closeL();return}
+  closeL();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeL()});
+apply(lang);
+
+/* ---------- vector succulent (from Figma) ---------- */
+const POT=`<path d="M345 572C345 539 459 518 600 518C741 518 855 539 855 572L847 823C846 857 736 885 600 885C464 885 354 857 353 823L345 572Z" fill="url(#gp0)" stroke="#C7C7BA" stroke-width="1.3"/><path d="M600 626C740.8 626 855 601.8 855 572C855 542.2 740.8 518 600 518C459.2 518 345 542.2 345 572C345 601.8 459.2 626 600 626Z" fill="url(#gp1)" stroke="#C7C7BA" stroke-width="1.3"/><path d="M600 608C727.6 608 831 591 831 570C831 549 727.6 532 600 532C472.4 532 369 549 369 570C369 591 472.4 608 600 608Z" fill="#6F6A5C" stroke="#C9CABC" stroke-width="1.2"/><path opacity=".75" d="M371 613C420 632 512 641 600 641C689 641 778 632 828 613" stroke="#FAF8F2" stroke-width="1.5" stroke-linecap="round" fill="none"/>`;
+const LV=[
+["M600 460C544 417 531 355 550 293C567 239 592 208 600 177C608 208 633 239 650 293C669 355 656 417 600 460Z","t","M600 202C588 286 589 351 600 419"],
+["M568 467C503 472 447 422 431 358C418 304 418 264 407 228C443 252 491 264 528 298C577 343 593 408 568 467Z","t","M425 250C470 301 516 370 551 435"],
+["M632 467C697 472 753 422 769 358C782 304 782 264 793 228C757 252 709 264 672 298C623 343 607 408 632 467Z","t","M775 250C730 301 684 370 649 435"],
+["M550 490C480 526 411 508 364 459C321 415 307 372 275 341C319 355 368 346 419 360C487 379 535 427 550 490Z","t","M300 358C377 390 457 438 515 477"],
+["M650 490C720 526 789 508 836 459C879 415 893 372 925 341C881 355 832 346 781 360C713 379 665 427 650 490Z","t","M900 358C823 390 743 438 685 477"],
+["M584 475C526 428 469 432 417 457C365 482 334 506 300 512C331 529 353 562 402 580C475 607 550 574 584 475Z","b","M326 516C405 527 489 511 549 487"],
+["M616 475C674 428 731 432 783 457C835 482 866 506 900 512C869 529 847 562 798 580C725 607 650 574 616 475Z","b","M874 516C795 527 711 511 651 487"],
+["M598 458C538 441 482 464 463 511C445 557 451 590 429 615C466 612 505 622 546 602C597 576 617 510 598 458Z","b","M447 603C504 579 550 528 578 483"],
+["M602 458C662 441 718 464 737 511C755 557 749 590 771 615C734 612 695 622 654 602C603 576 583 510 602 458Z","b","M753 603C696 579 650 528 622 483"],
+["M589 465C531 443 503 401 504 356C505 320 513 293 505 271C534 290 566 305 589 335C620 375 619 422 589 465Z","t","M518 293C550 340 574 390 585 436"],
+["M611 465C669 443 697 401 696 356C695 320 687 293 695 271C666 290 634 305 611 335C580 375 581 422 611 465Z","t","M682 293C650 340 626 390 615 436"],
+["M590 482C540 515 486 492 461 452C438 416 430 384 412 367C443 377 474 373 509 386C552 402 582 438 590 482Z","t","M433 383C482 406 535 445 566 471"],
+["M610 482C660 515 714 492 739 452C762 416 770 384 788 367C757 377 726 373 691 386C648 402 618 438 610 482Z","t","M767 383C718 406 665 445 634 471"],
+["M600 447C554 460 533 499 541 544C549 588 584 605 600 635C616 605 651 588 659 544C667 499 646 460 600 447Z","b","M600 615C594 572 593 520 600 480"],
+["M600 466C562 443 553 409 564 379C575 348 594 331 600 313C606 331 625 348 636 379C647 409 638 443 600 466Z","t","M600 333C594 372 595 407 600 440"],
+["M600 475C560 486 532 469 521 444C510 419 513 399 502 383C526 392 546 392 565 405C590 422 604 446 600 475Z","t"],
+["M600 475C640 486 668 469 679 444C690 419 687 399 698 383C674 392 654 392 635 405C610 422 596 446 600 475Z","t"],
+["M601 453C570 436 544 449 532 469C519 490 520 510 507 523C534 525 557 522 575 507C594 492 602 474 601 453Z","b"],
+["M599 453C630 436 656 449 668 469C681 490 680 510 693 523C666 525 643 522 625 507C606 492 598 474 599 453Z","b"],
+["M600 471C575 457 571 436 581 417C590 402 597 393 600 383C604 396 618 408 624 424C631 445 617 463 600 471Z","t"],
+["M601 477C575 482 561 462 558 438C580 439 600 450 601 477Z","t"],
+["M599 477C625 482 639 462 642 438C620 439 600 450 599 477Z","t"],
+["M600 461C580 463 576 478 583 491C588 500 597 505 600 513C604 505 613 500 618 491C625 478 620 463 600 461Z","b"]];
+const LEAVES=LV.map((l,i)=>`<g class="lf" style="animation-delay:${(-(i*1.37)%7).toFixed(2)}s"><path d="${l[0]}" fill="url(#g${l[1]})" stroke="#9EAF98" stroke-width="1.2" stroke-linejoin="round"/>${l[2]?`<path d="${l[2]}" stroke="#E0E4D5" stroke-width="1.2" stroke-linecap="round" fill="none" opacity=".65"/>`:''}</g>`).join('');
+const plant=pot=>`<svg viewBox="${pot?'260 160 680 740':'260 160 680 480'}" aria-hidden="true">${pot?POT:''}${LEAVES}</svg>`;
+$$('[data-plant]').forEach(e=>e.innerHTML=plant(e.dataset.plant==='pot'));
+
+/* ---------- frontal boxes ---------- */
+const lid=(cls,word)=>`<div class="${cls}"><div class="lidt"></div><div class="lidf"><div class="mark" style="top:46%">${word}</div><div class="hair" style="bottom:7%"></div></div></div>`;
+$$('.box').forEach(b=>{
+  if(b.dataset.kind==='cap'){
+    b.innerHTML=`<div class="shd"></div><div class="open-s"></div><div class="pl">${plant(1)}</div><div class="front"><div class="hair" style="top:5%"></div><div class="mark sm" style="bottom:7%">PORTO</div></div>${lid('lid','CAPSULENT')}`;
+  }else{
+    const pls=[['v-blue',3,30],['',35,32],['v-deep',67,29]].map(([c,x,w])=>`<div class="pl ${c}" style="left:${x}%;width:${w}%">${plant(0)}</div>`).join('');
+    b.innerHTML=`<div class="shd"></div><div class="open-s"></div>${pls}<div class="front"><div class="hair" style="top:7%"></div></div>${lid('slv','CAPSULENT')}`;
+  }
+});
+
+/* ---------- scroll scenes ---------- */
+const secA=$('#top'),boxA=$('#boxA'),zA=$('#zA'),stm=$('#stm'),stmF=$('#stm .fade');
+const vis=(el,o)=>{el.style.opacity=o.toFixed(3);el.classList.toggle('on',o>.5)};
+const win=(p,a,b,f)=>Math.min(seg(p,a,a+f),1-seg(p,b-f,b));
+const prog=s=>{const r=s.getBoundingClientRect(),t=r.height-innerHeight;return t>0?cl(-r.top/t,0,1):null};
+function size(){
+  const st=$('#top .stage'),sh=st.clientHeight,w=innerWidth;
+  boxA.style.setProperty('--bw',Math.min(w*.92,sh*.98*935/1015)+'px');
+}
+function frameA(p){
+  const l=ease(seg(p,.04,.5)),l2=ease(seg(p,.45,.66)),z=ease(seg(p,.6,.9));
+  boxA.style.setProperty('--l',l.toFixed(4));boxA.style.setProperty('--l2',l2.toFixed(4));
+  zA.style.transform=`scale(${(1.1-.1*l-.16*z).toFixed(4)})`;
+  vis($('#ca0'),1-seg(p,.03,.1));$('#hint').style.opacity=(1-seg(p,0,.06)).toFixed(3);
+  vis($('#ca1'),win(p,.24,.62,.06));vis($('#ca2'),seg(p,.74,.84));
+}
+let tk=0;
+function onScroll(){if(tk)return;tk=1;requestAnimationFrame(()=>{tk=0;if(document.body.dataset.v!=='home')return;const a=prog(secA);frameA(RM?.7:(a??.7));if(!RM){const r=stm.getBoundingClientRect(),w=seg(innerHeight*.9-r.top,0,innerHeight*.85);stmF.style.setProperty('--w',w.toFixed(4))}})}
+addEventListener('scroll',onScroll,{passive:true});
+addEventListener('resize',()=>{size();onScroll()});
+
+/* ---------- routing ---------- */
+const views=['capsule','garden','privacy','terms','cookies'];let prev='home';
+const hdr=$('#hdr'),mb=$('#menuBtn');
+function route(){
+  const h=location.hash.slice(1),v=views.includes(h)?h:'home';
+  $$('main[data-view]').forEach(s=>s.hidden=s.dataset.view!==v);document.body.dataset.v=v;
+  hdr.classList.remove('open');mb.setAttribute('aria-expanded','false');
+  if(v==='home'){size();const el=h&&h!=='top'?document.getElementById(h):null;if(el)requestAnimationFrame(()=>el.scrollIntoView());else if(prev!=='home'||h==='top')scrollTo(0,0)}
+  else scrollTo(0,0);
+  prev=v;onScroll();
+}
+addEventListener('hashchange',route);route();
+mb.addEventListener('click',()=>{const o=hdr.classList.toggle('open');mb.setAttribute('aria-expanded',String(o))});
+
+/* ---------- order form ---------- */
+const minD=new Date(Date.now()+61*864e5).toISOString().slice(0,10);$('#i-dt').min=minD;
+let text='';
+$('#f').addEventListener('submit',e=>{
+  e.preventDefault();const v=id=>$('#'+id).value.trim(),err=$('#err');
+  if(!v('i-co')||!v('i-nm')||!/^\S+@\S+\.\S+$/.test(v('i-em'))){err.textContent=D.e1;return}
+  if(!(+v('i-qt')>=25)){err.textContent=D.e2;return}
+  if(v('i-dt')&&v('i-dt')<minD){err.textContent=D.e3;return}
+  if(!$('#i-ok').checked){err.textContent=D.e4;return}
+  err.textContent='';const fm=$('#i-fm');
+  text=`${D.reqT} — CAPSULENT\n\n${D.fCo}: ${v('i-co')}\n${D.fNm}: ${v('i-nm')}\n${D.fEm}: ${v('i-em')}\n${D.fPh}: ${v('i-ph')||'—'}\n${D.fFm}: ${fm.options[fm.selectedIndex].text}\n${D.sQt}: ${v('i-qt')}\n${D.sDt}: ${v('i-dt')||D.tbd}\n\n${v('i-ms')}`.trim();
+  $('#sum').textContent=text;
+  $('#mail').href='mailto:order@capsulent.com?subject='+encodeURIComponent(D.reqT+' — '+v('i-co'))+'&body='+encodeURIComponent(text);
+  $('#wa').href='https://wa.me/351912255675?text='+encodeURIComponent(text);
+  $('#out').hidden=false;$('#out').scrollIntoView({block:'nearest',behavior:RM?'auto':'smooth'});
+});
+$('#cp').addEventListener('click',e=>{const b=e.currentTarget;try{navigator.clipboard.writeText(text).then(()=>b.textContent=D.sCpd,()=>b.textContent=D.sCpx)}catch(x){b.textContent=D.sCpx}});
+
+/* ---------- cookie banner ---------- */
+const ck=$('#cookie');if(!store.get('capsulent-consent'))ck.hidden=false;
+const choose=v=>{store.set('capsulent-consent',v);ck.hidden=true};
+$('#ckA').addEventListener('click',()=>choose('all'));$('#ckE').addEventListener('click',()=>choose('essential'));
+$('#ckOpen').addEventListener('click',()=>{ck.hidden=false});
+$('#fbtn').addEventListener('click',e=>{const o=document.querySelector('footer').classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',String(o))});
+}
+</script>
+</body>
+</html>
